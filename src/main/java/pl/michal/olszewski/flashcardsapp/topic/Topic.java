@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
@@ -15,6 +16,7 @@ import pl.michal.olszewski.flashcardsapp.cards.Card;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Builder
 public class Topic extends BaseEntity {
 
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -22,6 +24,7 @@ public class Topic extends BaseEntity {
       joinColumns = @JoinColumn(name = "topic_id"),
       inverseJoinColumns = @JoinColumn(name = "card_id")
   )
+  @Builder.Default
   private List<Card> cards = new ArrayList<>();
 
   public void addCard(Card card) {
