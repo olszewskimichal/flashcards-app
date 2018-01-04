@@ -16,7 +16,6 @@ import pl.michal.olszewski.flashcardsapp.cards.Card;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
 public class Topic extends BaseEntity {
 
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -24,16 +23,28 @@ public class Topic extends BaseEntity {
       joinColumns = @JoinColumn(name = "topic_id"),
       inverseJoinColumns = @JoinColumn(name = "card_id")
   )
-  @Builder.Default
-  private List<Card> cards = new ArrayList<>();
+  private List<Card> cards;
+
+  @Builder
+  public Topic(Long id, List<Card> cards) {
+    super(id);
+    this.cards = cards;
+  }
 
   public void addCard(Card card) {
-    cards.add(card);
+    getCards().add(card);
     card.getTopics().add(this);
   }
 
   public void removeCard(Card card) {
-    cards.remove(card);
+    getCards().remove(card);
     card.getTopics().remove(this);
+  }
+
+  public List<Card> getCards() {
+    if (cards == null) {
+      cards = new ArrayList<>();
+    }
+    return cards;
   }
 }

@@ -13,15 +13,28 @@ import pl.michal.olszewski.flashcardsapp.topic.Topic;
 
 @Entity
 @Data
-@EqualsAndHashCode(callSuper = true,exclude = "topics")
+@EqualsAndHashCode(callSuper = true, exclude = "topics")
 @ToString(exclude = "topics")
-@Builder
 public class Card extends BaseEntity {
 
   private String question;
   private String answer;
 
   @ManyToMany(mappedBy = "cards")
-  @Builder.Default
   private List<Topic> topics = new ArrayList<>();
+
+  @Builder
+  public Card(Long id, String question, String answer, List<Topic> topics) {
+    super(id);
+    this.question = question;
+    this.answer = answer;
+    this.topics = topics;
+  }
+
+  public List<Topic> getTopics() {
+    if (topics == null) {
+      topics = new ArrayList<>();
+    }
+    return topics;
+  }
 }
