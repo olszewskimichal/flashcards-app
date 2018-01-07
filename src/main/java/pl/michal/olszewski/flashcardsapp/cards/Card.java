@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -12,7 +13,7 @@ import pl.michal.olszewski.flashcardsapp.topic.Topic;
 
 @Entity
 @Data
-@EqualsAndHashCode(callSuper = true,exclude = "topics")
+@EqualsAndHashCode(callSuper = true, exclude = "topics")
 @ToString(exclude = "topics")
 public class Card extends BaseEntity {
 
@@ -21,4 +22,19 @@ public class Card extends BaseEntity {
 
   @ManyToMany(mappedBy = "cards")
   private List<Topic> topics = new ArrayList<>();
+
+  @Builder
+  public Card(Long id, String question, String answer, List<Topic> topics) {
+    super(id);
+    this.question = question;
+    this.answer = answer;
+    this.topics = topics;
+  }
+
+  public List<Topic> getTopics() {
+    if (topics == null) {
+      topics = new ArrayList<>();
+    }
+    return topics;
+  }
 }
