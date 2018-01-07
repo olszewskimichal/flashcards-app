@@ -1,8 +1,8 @@
-package pl.michal.olszewski.flashcardsapp.mapper;
+package pl.michal.olszewski.flashcardsapp.topic;
 
 import org.springframework.stereotype.Component;
-import pl.michal.olszewski.flashcardsapp.topic.Topic;
-import pl.michal.olszewski.flashcardsapp.topic.TopicDTO;
+import pl.michal.olszewski.flashcardsapp.cards.CardObjectMapper;
+import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
 
 @Component("TopicObjectMapper")
 public class TopicObjectMapper implements ObjectMapper<Topic, TopicDTO> {

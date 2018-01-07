@@ -1,8 +1,7 @@
-package pl.michal.olszewski.flashcardsapp.mapper;
+package pl.michal.olszewski.flashcardsapp.cards;
 
 import org.springframework.stereotype.Component;
-import pl.michal.olszewski.flashcardsapp.cards.Card;
-import pl.michal.olszewski.flashcardsapp.cards.CardDTO;
+import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
 
 @Component("CardObjectMapper")
 public class CardObjectMapper implements ObjectMapper<Card, CardDTO> {

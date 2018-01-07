@@ -1,11 +1,9 @@
-package pl.michal.olszewski.flashcardsapp.mapper;
+package pl.michal.olszewski.flashcardsapp.cards;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.Test;
-import pl.michal.olszewski.flashcardsapp.cards.Card;
-import pl.michal.olszewski.flashcardsapp.cards.CardDTO;
 
 
 class CardObjectMapperTest {

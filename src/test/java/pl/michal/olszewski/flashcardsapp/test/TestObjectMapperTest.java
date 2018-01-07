@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.mapper;
+package pl.michal.olszewski.flashcardsapp.test;
 
 import org.junit.jupiter.api.Test;
 

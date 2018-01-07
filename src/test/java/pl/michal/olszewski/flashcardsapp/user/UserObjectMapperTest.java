@@ -1,12 +1,9 @@
-package pl.michal.olszewski.flashusersapp.mapper;
+package pl.michal.olszewski.flashcardsapp.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.Test;
-import pl.michal.olszewski.flashcardsapp.mapper.UserObjectMapper;
-import pl.michal.olszewski.flashcardsapp.user.User;
-import pl.michal.olszewski.flashcardsapp.user.UserDTO;
 
 
 class UserObjectMapperTest {
