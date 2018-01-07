@@ -1,5 +1,6 @@
 package pl.michal.olszewski.flashcardsapp.cards;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
@@ -38,6 +39,10 @@ public class CardService {
       throw new CardNotFoundException(cardId);
     }
     return card;
+  }
+
+  public List<Card> findCardsByIds(List<Long> cardsIds) {
+    return cardRepository.findAll(cardsIds);
   }
 
 }

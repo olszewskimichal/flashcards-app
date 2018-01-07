@@ -1,6 +1,9 @@
 package pl.michal.olszewski.flashcardsapp.topic;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
+import pl.michal.olszewski.flashcardsapp.cards.CardDTO;
 import pl.michal.olszewski.flashcardsapp.cards.CardObjectMapper;
 import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
 
@@ -16,7 +19,8 @@ public class TopicObjectMapper implements ObjectMapper<Topic, TopicDTO> {
 
   @Override
   public TopicDTO convertToDTO(Topic entity) {
-    return TopicDTO.builder().id(entity.getId()).name(entity.getName()).build();
+    List<CardDTO> cards = entity.getCards().stream().map(cardObjectMapper::convertToDTO).collect(Collectors.toList());
+    return TopicDTO.builder().id(entity.getId()).name(entity.getName()).cards(cards).build();
   }
 
   @Override

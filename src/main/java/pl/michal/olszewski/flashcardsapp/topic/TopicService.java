@@ -22,12 +22,12 @@ public class TopicService {
   }
 
   public Topic updateTopic(TopicDTO topicDTO) {
-    Topic topic = findCardById(topicDTO.getId());
+    Topic topic = findTopicById(topicDTO.getId());
     objectMapper.updateFrom(topicDTO, topic);
     return topic;
   }
 
-  private Topic findCardById(Long id) {
+  public Topic findTopicById(Long id) {
     Topic topic = topicRepository.findOne(id);
     if (topic == null) {
       throw new TopicNotFoundException(id);
@@ -36,7 +36,8 @@ public class TopicService {
   }
 
   public TopicDTO getTopicById(long topicId) {
-    Topic topic = findCardById(topicId);
+    Topic topic = findTopicById(topicId);
     return objectMapper.convertToDTO(topic);
   }
+
 }
