@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 
 @Entity

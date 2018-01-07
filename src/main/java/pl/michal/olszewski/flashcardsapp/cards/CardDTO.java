@@ -7,6 +7,7 @@ import pl.michal.olszewski.flashcardsapp.base.DataTransferObject;
 @Builder
 @Data
 public class CardDTO implements DataTransferObject {
+
   private final Long id;
   private final String question;
   private final String answer;
