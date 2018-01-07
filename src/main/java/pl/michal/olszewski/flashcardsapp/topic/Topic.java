@@ -18,6 +18,8 @@ import pl.michal.olszewski.flashcardsapp.cards.Card;
 @Data
 public class Topic extends BaseEntity {
 
+  private String name;
+
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(name = "post_card",
       joinColumns = @JoinColumn(name = "topic_id"),
@@ -26,9 +28,10 @@ public class Topic extends BaseEntity {
   private List<Card> cards;
 
   @Builder
-  public Topic(Long id, List<Card> cards) {
+  public Topic(Long id, List<Card> cards, String name) {
     super(id);
     this.cards = cards;
+    this.name = name;
   }
 
   public void addCard(Card card) {
