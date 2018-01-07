@@ -1,8 +1,10 @@
 package pl.michal.olszewski.flashcardsapp.mapper;
 
+import org.springframework.stereotype.Component;
 import pl.michal.olszewski.flashcardsapp.test.Test;
 import pl.michal.olszewski.flashcardsapp.test.TestDTO;
 
+@Component("TestObjectMapper")
 public class TestObjectMapper implements ObjectMapper<Test, TestDTO> {
 
   @Override
