@@ -1,5 +1,6 @@
 package pl.michal.olszewski.flashcardsapp.topic;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
 
@@ -9,7 +10,7 @@ public class TopicService {
   private final TopicRepository topicRepository;
   private final ObjectMapper<Topic, TopicDTO> objectMapper;
 
-  public TopicService(TopicRepository topicRepository, ObjectMapper<Topic, TopicDTO> objectMapper) {
+  public TopicService(TopicRepository topicRepository, @Qualifier("TopicObjectMapper") ObjectMapper<Topic, TopicDTO> objectMapper) {
     this.topicRepository = topicRepository;
     this.objectMapper = objectMapper;
   }

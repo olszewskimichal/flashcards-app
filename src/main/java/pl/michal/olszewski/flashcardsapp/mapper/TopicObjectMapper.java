@@ -11,7 +11,7 @@ public class TopicObjectMapper implements ObjectMapper<Topic, TopicDTO> {
 
   @Override
   public Topic convertFromDTO(TopicDTO transferObject) {
-    return Topic.builder().id(transferObject.getId()).name(transferObject.getName()).build();
+    return Topic.builder().name(transferObject.getName()).build();
   }
 
   @Override

@@ -15,15 +15,12 @@ class TopicObjectMapperTest {
   @Test
   void shouldConvertFromTopicDTO() {
     //given
-    TopicDTO topicDTO = TopicDTO.builder().id(1L).build();
+    TopicDTO topicDTO = TopicDTO.builder().name("name").build();
     //when
     Topic topic = mapper.convertFromDTO(topicDTO);
     //then
     assertAll(
-        () -> assertThat(topic.getId()).isEqualTo(1L),
-        () -> assertThat(topic.getCards().size()).isEqualTo(1),
-        () -> assertThat(topic.getCards().get(0).getAnswer()).isEqualTo("answer"),
-        () -> assertThat(topic.getCards().get(0).getQuestion()).isEqualTo("question")
+        () -> assertThat(topic.getName()).isEqualTo("name")
     );
   }
 

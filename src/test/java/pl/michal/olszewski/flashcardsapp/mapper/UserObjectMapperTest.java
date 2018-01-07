@@ -43,7 +43,7 @@ class UserObjectMapperTest {
   void shouldUpdateUserFromUserDTO() {
     //given
     User user = User.builder().firstName("first2").lastName("lastName2").id(1L).build();
-    UserDTO userDTO = UserDTO.builder().firstName("newName").lastName("newLastName").build();
+    UserDTO userDTO = UserDTO.builder().firstName("newName").lastName("newLastName").id(1L).build();
     //when
     mapper.updateFrom(userDTO, user);
     //then
