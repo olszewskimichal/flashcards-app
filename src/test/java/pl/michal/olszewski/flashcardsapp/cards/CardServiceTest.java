@@ -6,6 +6,9 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -77,5 +80,19 @@ class CardServiceTest {
     given(cardRepository.findOne(1L)).willReturn(null);
     CardNotFoundException cardNotFoundException = assertThrows(CardNotFoundException.class, () -> cardService.getCardById(2L));
     assertThat(cardNotFoundException.getMessage()).isEqualTo("Nie znalaziono fiszki o id = 2");
+  }
+
+  @Test
+  void shouldReturnEmptyListWhenTryFindCardsByNotExistingIds() {
+    given(cardRepository.findAll(Arrays.asList(1L, 2L))).willReturn(new ArrayList<>());
+    List<Card> cardsByIds = cardService.findCardsByIds(Arrays.asList(1L, 2L));
+    assertThat(cardsByIds).hasSize(0).isEmpty();
+  }
+
+  @Test
+  void shouldCardsListWhenFindCardsByIds() {
+    given(cardRepository.findAll(Arrays.asList(1L, 2L))).willReturn(Arrays.asList(Card.builder().id(1L).build(), Card.builder().id(2L).build()));
+    List<Card> cardsByIds = cardService.findCardsByIds(Arrays.asList(1L, 2L));
+    assertThat(cardsByIds).hasSize(2);
   }
 }
