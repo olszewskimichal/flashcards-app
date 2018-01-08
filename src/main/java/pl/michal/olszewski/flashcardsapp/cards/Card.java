@@ -7,14 +7,16 @@ import javax.persistence.ManyToMany;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 
 @Entity
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true, exclude = "topics")
-@ToString(exclude = "topics")
 public class Card extends BaseEntity {
 
   private String question;
