@@ -2,10 +2,11 @@ package pl.michal.olszewski.flashcardsapp.user;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import pl.michal.olszewski.flashcardsapp.base.DataTransferObject;
 
-@Data
 @Builder
+@Getter
 public class UserDTO implements DataTransferObject {
 
   private final Long id;
