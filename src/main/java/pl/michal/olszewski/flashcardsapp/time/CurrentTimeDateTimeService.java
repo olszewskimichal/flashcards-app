@@ -15,7 +15,7 @@ public class CurrentTimeDateTimeService implements DateTimeService {
   public Instant getCurrentDateTime() {
     Instant currentDateAndTime = Instant.now();
 
-    log.info("Returning current date and time: {}", currentDateAndTime);
+    log.debug("Returning current date and time: {}", currentDateAndTime);
     return currentDateAndTime;
   }
 }
