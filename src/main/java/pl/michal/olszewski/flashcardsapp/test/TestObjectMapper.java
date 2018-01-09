@@ -2,18 +2,25 @@ package pl.michal.olszewski.flashcardsapp.test;
 
 import org.springframework.stereotype.Component;
 import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 
 @Component("TestObjectMapper")
 public class TestObjectMapper implements ObjectMapper<Test, TestDTO> {
 
+  private final TopicRepository topicRepository;
+
+  public TestObjectMapper(TopicRepository topicRepository) {
+    this.topicRepository = topicRepository;
+  }
+
   @Override
   public Test convertFromDTO(TestDTO transferObject) {
-    return Test.builder().build();
+    return Test.builder().topic(topicRepository.findOne(transferObject.getTopicId())).build();
   }
 
   @Override
   public TestDTO convertToDTO(Test entity) {
-    return TestDTO.builder().build();
+    return TestDTO.builder().topicId(entity.getTopic().getId()).build();
   }
 
   @Override

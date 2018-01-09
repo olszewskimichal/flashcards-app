@@ -1,18 +1,47 @@
 package pl.michal.olszewski.flashcardsapp.test;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
+import pl.michal.olszewski.flashcardsapp.attempt.Attempt;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
+import pl.michal.olszewski.flashcardsapp.topic.Topic;
 
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Getter
-@Setter
-@Builder
 public class Test extends BaseEntity {
+
+  @Builder
+  public Test(Long id, Topic topic, List<Attempt> attempts) {
+    super(id);
+    this.topic = topic;
+    this.attempts = attempts;
+  }
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @MapsId
+  private Topic topic;
+
+  @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Attempt> attempts;
+
+  public void addAttempt(Attempt attempt) {
+    attempts.add(attempt);
+    attempt.setTest(this);
+  }
+
+  public void removeAttempt(Attempt attempt) {
+    attempts.remove(attempt);
+    attempt.setTest(null);
+  }
 
 }

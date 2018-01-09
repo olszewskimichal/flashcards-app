@@ -2,7 +2,6 @@ package pl.michal.olszewski.flashcardsapp.user;
 
 import javax.persistence.Entity;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
