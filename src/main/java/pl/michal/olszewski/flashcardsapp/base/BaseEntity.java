@@ -11,10 +11,8 @@ import lombok.ToString;
 
 @MappedSuperclass
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @EqualsAndHashCode
-@ToString
 public abstract class BaseEntity {
 
   @Id
