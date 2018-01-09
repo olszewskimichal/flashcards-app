@@ -1,9 +1,11 @@
-package pl.michal.olszewski.flashcardsapp.topic;
+package pl.michal.olszewski.flashcardsapp.addcard;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.cards.Card;
 import pl.michal.olszewski.flashcardsapp.cards.CardService;
+import pl.michal.olszewski.flashcardsapp.topic.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.TopicService;
 
 @Service
 public class AddCardService {
