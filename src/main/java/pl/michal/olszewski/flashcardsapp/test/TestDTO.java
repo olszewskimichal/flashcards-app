@@ -8,4 +8,6 @@ import pl.michal.olszewski.flashcardsapp.base.DataTransferObject;
 @Data
 public class TestDTO implements DataTransferObject {
 
+  private final Long topicId;
+
 }

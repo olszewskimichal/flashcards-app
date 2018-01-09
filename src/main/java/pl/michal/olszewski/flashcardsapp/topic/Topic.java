@@ -10,12 +10,15 @@ import javax.persistence.ManyToMany;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.cards.Card;
 
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 public class Topic extends BaseEntity {
 
   private String name;
