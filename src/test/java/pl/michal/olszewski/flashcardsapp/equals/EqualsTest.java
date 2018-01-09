@@ -3,6 +3,7 @@ package pl.michal.olszewski.flashcardsapp.equals;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 import pl.michal.olszewski.flashcardsapp.attempt.Attempt;
+import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.cards.Card;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 import pl.michal.olszewski.flashcardsapp.user.User;
@@ -16,6 +17,11 @@ class EqualsTest {
     Topic topicTwo = Topic.builder().name("name2").id(2L).build();
 
     EqualsVerifier.forClass(Card.class).withPrefabValues(Topic.class, topicOne, topicTwo).withIgnoredFields("topics").withRedefinedSuperclass().verify();
+  }
+
+  @Test
+  void baseEntityEqualsContractTest(){
+    EqualsVerifier.forClass(BaseEntity.class).verify();
   }
 
   @Test
