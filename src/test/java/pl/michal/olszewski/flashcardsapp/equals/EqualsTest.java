@@ -20,7 +20,7 @@ class EqualsTest {
   }
 
   @Test
-  void baseEntityEqualsContractTest(){
+  void baseEntityEqualsContractTest() {
     EqualsVerifier.forClass(BaseEntity.class).verify();
   }
 

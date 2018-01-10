@@ -13,12 +13,12 @@ public enum AttemptStatusEnum {
     this.value = i;
   }
 
-  public Long getValue() {
-    return value;
-  }
-
   public static AttemptStatusEnum fromValue(Long value) {
     return Arrays.stream(AttemptStatusEnum.values()).filter(e -> e.value.equals(value)).findFirst().orElse(null);
+  }
+
+  public Long getValue() {
+    return value;
   }
 
 }
