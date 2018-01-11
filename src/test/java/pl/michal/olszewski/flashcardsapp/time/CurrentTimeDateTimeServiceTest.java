@@ -18,11 +18,10 @@ class CurrentTimeDateTimeServiceTest {
   }
 
   @Test
-  void shouldGetCurrentDateTime() throws InterruptedException {
+  void shouldGetCurrentDateTime() {
     //given
     Instant dateTime = timeService.getCurrentDateTime();
     //when
-    Thread.sleep(5);
     Instant currentDateTime = timeService.getCurrentDateTime();
     //then
     assertThat(currentDateTime).isAfter(dateTime);

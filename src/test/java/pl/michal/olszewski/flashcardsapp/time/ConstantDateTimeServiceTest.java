@@ -16,11 +16,10 @@ class ConstantDateTimeServiceTest {
   }
 
   @Test
-  void shouldReturnConstantTimeEveryTime() throws InterruptedException {
+  void shouldReturnConstantTimeEveryTime() {
     //given
     Instant dateTime = timeService.getCurrentDateTime();
     //when
-    Thread.sleep(5);
     Instant currentDateTime = timeService.getCurrentDateTime();
     //then
     assertThat(dateTime).isEqualTo(currentDateTime);
