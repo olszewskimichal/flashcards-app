@@ -1,5 +1,6 @@
 package pl.michal.olszewski.flashcardsapp.test;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -33,8 +34,14 @@ public class Test extends BaseEntity {
   }
 
   public void addAttempt(Attempt attempt) {
-    attempts.add(attempt);
+    getAttempts().add(attempt);
     attempt.setTest(this);
   }
 
+  public List<Attempt> getAttempts() {
+    if (attempts == null) {
+      attempts = new ArrayList<>();
+    }
+    return attempts;
+  }
 }

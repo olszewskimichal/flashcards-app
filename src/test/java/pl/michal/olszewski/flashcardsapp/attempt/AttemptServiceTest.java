@@ -32,11 +32,12 @@ class AttemptServiceTest {
   @Test
   void shouldCreateNewAttempt() {
     NewAttemptDTO newAttemptDTO = NewAttemptDTO.builder().attemptCount(1L).testId(1L).userId(1L).build();
-    given(objectMapper.convertFromDTO(Matchers.any(NewAttemptDTO.class))).willReturn(Attempt.builder().build());
+    given(objectMapper.convertFromDTO(Matchers.any(NewAttemptDTO.class))).willReturn(Attempt.builder().test(pl.michal.olszewski.flashcardsapp.test.Test.builder().build()).build());
 
     Attempt attempt = attemptService.createNewAttempt(newAttemptDTO);
 
     assertThat(attempt).isNotNull();
+    assertThat(attempt.getTest().getAttempts()).isNotEmpty();
 
     Mockito.verify(attemptRepository, Mockito.times(1)).save(attempt);
   }

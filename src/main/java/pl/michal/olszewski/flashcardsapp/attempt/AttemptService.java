@@ -17,6 +17,7 @@ public class AttemptService {
 
   public Attempt createNewAttempt(NewAttemptDTO newAttemptDTO) {
     Attempt attempt = objectMapper.convertFromDTO(newAttemptDTO);
+    attempt.getTest().addAttempt(attempt);
     attemptRepository.save(attempt);
     return attempt;
   }
