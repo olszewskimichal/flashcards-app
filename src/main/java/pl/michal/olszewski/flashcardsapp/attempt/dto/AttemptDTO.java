@@ -1,14 +1,15 @@
-package pl.michal.olszewski.flashcardsapp.attempt;
+package pl.michal.olszewski.flashcardsapp.attempt.dto;
 
 import java.time.Instant;
 import lombok.Builder;
 import lombok.Getter;
+import pl.michal.olszewski.flashcardsapp.attempt.AttemptStatusEnum;
 import pl.michal.olszewski.flashcardsapp.base.DataTransferObject;
 
 @Getter
 public class AttemptDTO implements DataTransferObject {
 
-  private final Long id;
+  private final Long attemptId;
   private final Long userId;
   private final Instant startDateTime;
   private final Instant endDateTime;
@@ -17,8 +18,8 @@ public class AttemptDTO implements DataTransferObject {
   private final Long testId;
 
   @Builder
-  public AttemptDTO(Long id, Long userId, Instant startDateTime, Instant endDateTime, Long attemptCount, AttemptStatusEnum attemptStatus, Long testId) {
-    this.id = id;
+  public AttemptDTO(Long attemptId, Long userId, Instant startDateTime, Instant endDateTime, Long attemptCount, AttemptStatusEnum attemptStatus, Long testId) {
+    this.attemptId = attemptId;
     this.userId = userId;
     this.startDateTime = startDateTime;
     this.endDateTime = endDateTime;

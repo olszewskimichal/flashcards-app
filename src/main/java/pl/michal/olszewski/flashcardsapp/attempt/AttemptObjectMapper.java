@@ -2,39 +2,41 @@ package pl.michal.olszewski.flashcardsapp.attempt;
 
 import java.util.Objects;
 import org.springframework.stereotype.Component;
-import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.attempt.dto.AttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.dto.NewAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.dto.UpdateStatusAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.test.TestRepository;
+import pl.michal.olszewski.flashcardsapp.time.DateTimeService;
 import pl.michal.olszewski.flashcardsapp.user.UserRepository;
 
 @Component("AttemptObjectMapper")
-public class AttemptObjectMapper implements ObjectMapper<Attempt, AttemptDTO> {
+public class AttemptObjectMapper {
 
   private final UserRepository userRepository;
   private final TestRepository testRepository;
+  private final DateTimeService timeService;
 
-  public AttemptObjectMapper(UserRepository userRepository, TestRepository testRepository) {
+  public AttemptObjectMapper(UserRepository userRepository, TestRepository testRepository, DateTimeService timeService) {
     this.userRepository = userRepository;
     this.testRepository = testRepository;
+    this.timeService = timeService;
   }
 
-  @Override
-  public Attempt convertFromDTO(AttemptDTO transferObject) {
+  public Attempt convertFromDTO(NewAttemptDTO transferObject) {
     Objects.requireNonNull(transferObject.getUserId(), "Nie podano id uzytkownika");
     Objects.requireNonNull(transferObject.getTestId(), "Nie podano id testu");
     return Attempt.builder()
         .attemptCount(transferObject.getAttemptCount())
-        .attemptStatus(AttemptStatusEnum.fromValue(transferObject.getAttemptStatus()))
-        .startDateTime(transferObject.getStartDateTime())
-        .endDateTime(transferObject.getEndDateTime())
+        .attemptStatus(AttemptStatusEnum.NEW)
+        .startDateTime(timeService.getCurrentDateTime())
         .test(testRepository.findOne(transferObject.getTestId()))
         .user(userRepository.findOne(transferObject.getUserId()))
         .build();
   }
 
-  @Override
   public AttemptDTO convertToDTO(Attempt entity) {
     return AttemptDTO.builder()
-        .id(entity.getId())
+        .attemptId(entity.getId())
         .testId(entity.getTest().getId())
         .userId(entity.getUser().getId())
         .attemptCount(entity.getAttemptCount())
@@ -44,12 +46,10 @@ public class AttemptObjectMapper implements ObjectMapper<Attempt, AttemptDTO> {
         .build();
   }
 
-  @Override
-  public Attempt updateFrom(AttemptDTO transferObject, Attempt entity) {
-    entity.setAttemptCount(transferObject.getAttemptCount());
+  public Attempt updateFrom(UpdateStatusAttemptDTO transferObject, Attempt entity) {
     entity.setAttemptStatus(transferObject.getAttemptStatus());
-    entity.setEndDateTime(transferObject.getEndDateTime());
-    entity.setStartDateTime(transferObject.getStartDateTime());
     return entity;
   }
+
+
 }
