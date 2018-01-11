@@ -39,7 +39,7 @@ public class Attempt extends BaseEntity {
     this.startDateTime = startDateTime;
     this.endDateTime = endDateTime;
     this.attemptCount = attemptCount;
-    this.attemptStatus = attemptStatus.getValue();
+    this.attemptStatus = attemptStatus == null ? null : attemptStatus.getValue();
     this.test = test;
   }
 }

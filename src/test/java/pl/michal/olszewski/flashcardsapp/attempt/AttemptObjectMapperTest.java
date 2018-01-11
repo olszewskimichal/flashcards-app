@@ -9,8 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import pl.michal.olszewski.flashcardsapp.attempt.dto.AttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.dto.NewAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.dto.UpdateStatusAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.test.TestRepository;
+import pl.michal.olszewski.flashcardsapp.time.DateTimeService;
 import pl.michal.olszewski.flashcardsapp.user.User;
 import pl.michal.olszewski.flashcardsapp.user.UserRepository;
 
@@ -24,27 +28,28 @@ class AttemptObjectMapperTest {
   @Mock
   private UserRepository userRepository;
 
+  @Mock
+  private DateTimeService timeService;
+
   private AttemptObjectMapper mapper;
 
   @BeforeEach
   void setUp() {
-    mapper = new AttemptObjectMapper(userRepository, testRepository);
+    mapper = new AttemptObjectMapper(userRepository, testRepository, timeService);
   }
 
   @Test
   void shouldConvertFromDTO() {
     //given
-    AttemptDTO attemptDTO = AttemptDTO.builder()
+    NewAttemptDTO newAttemptDTO = NewAttemptDTO.builder()
         .attemptCount(1L)
-        .attemptStatus(AttemptStatusEnum.NEW)
         .testId(2L)
         .userId(3L)
-        .startDateTime(Instant.now())
         .build();
     given(userRepository.findOne(3L)).willReturn(User.builder().build());
     given(testRepository.findOne(2L)).willReturn(pl.michal.olszewski.flashcardsapp.test.Test.builder().build());
     //when
-    Attempt attempt = mapper.convertFromDTO(attemptDTO);
+    Attempt attempt = mapper.convertFromDTO(newAttemptDTO);
     //then
     assertThat(attempt).isNotNull();
     assertThat(attempt.getAttemptCount()).isEqualTo(1L);
@@ -56,30 +61,26 @@ class AttemptObjectMapperTest {
   @Test
   void shouldThrowExceptionWhenConvertFromDTOWithoutUserId() {
     //given
-    AttemptDTO attemptDTO = AttemptDTO.builder()
+    NewAttemptDTO newAttemptDTO = NewAttemptDTO.builder()
         .attemptCount(1L)
-        .attemptStatus(AttemptStatusEnum.NEW)
         .testId(2L)
-        .startDateTime(Instant.now())
         .build();
     //when
     //then
-    NullPointerException exception = assertThrows(NullPointerException.class, () -> mapper.convertFromDTO(attemptDTO));
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> mapper.convertFromDTO(newAttemptDTO));
     assertThat(exception).hasMessage("Nie podano id uzytkownika");
   }
 
   @Test
   void shouldThrowExceptionWhenConvertFromDTOWithoutTestId() {
     //given
-    AttemptDTO attemptDTO = AttemptDTO.builder()
+    NewAttemptDTO newAttemptDTO = NewAttemptDTO.builder()
         .attemptCount(1L)
-        .attemptStatus(AttemptStatusEnum.NEW)
         .userId(2L)
-        .startDateTime(Instant.now())
         .build();
     //when
     //then
-    NullPointerException exception = assertThrows(NullPointerException.class, () -> mapper.convertFromDTO(attemptDTO));
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> mapper.convertFromDTO(newAttemptDTO));
     assertThat(exception).hasMessage("Nie podano id testu");
   }
 
@@ -115,12 +116,12 @@ class AttemptObjectMapperTest {
         .attemptStatus(AttemptStatusEnum.DURING)
         .build();
     //when
-    AttemptDTO attemptDTO = AttemptDTO.builder()
-        .id(1L)
+    UpdateStatusAttemptDTO updateStatusAttemptDTO = UpdateStatusAttemptDTO.builder()
+        .attemptId(1L)
         .attemptStatus(AttemptStatusEnum.DONE)
         .build();
     //then
-    attempt = mapper.updateFrom(attemptDTO, attempt);
+    attempt = mapper.updateFrom(updateStatusAttemptDTO, attempt);
     assertThat(attempt).isNotNull();
     assertThat(attempt.getAttemptStatus()).isEqualTo(AttemptStatusEnum.DONE.getValue());
   }
