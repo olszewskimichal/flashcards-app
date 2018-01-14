@@ -23,7 +23,7 @@ public class Test extends BaseEntity {
   @OneToOne(fetch = FetchType.LAZY)
   @MapsId
   private Topic topic;
-  @OneToMany(mappedBy = "testcards", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Attempt> attempts;
 
   @Builder
