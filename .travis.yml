@@ -25,9 +25,9 @@ script:
 
 jobs:
   include:
-    - stage: testcards
+    - stage: test
       script:
-        - mvn testcards sonar:sonar -Dsonar.coverage.exclusions=**/pl/michal/olszewski/flashcardsapp/config/** -B
+        - mvn test sonar:sonar -Dsonar.coverage.exclusions=**/pl/michal/olszewski/flashcardsapp/config/** -B
       after_success:
        - bash <(curl -s https://codecov.io/bash)
 notifications:
