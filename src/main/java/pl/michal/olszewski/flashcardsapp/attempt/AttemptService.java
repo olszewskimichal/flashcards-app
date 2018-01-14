@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.attempt.dto.CloseAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.dto.NewAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.dto.UpdateStatusAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
 import pl.michal.olszewski.flashcardsapp.testcards.TestCardLevelEnum;
 
@@ -32,6 +33,12 @@ public class AttemptService {
   public Attempt closeAttempt(CloseAttemptDTO closeAttemptDTO) {
     Attempt attempt = attemptRepository.findOne(closeAttemptDTO.getAttemptId());
     attempt.setAttemptStatus(AttemptStatusEnum.DONE.getValue());
+    return attempt;
+  }
+
+  public Attempt updateAttemptStatus(UpdateStatusAttemptDTO updateStatusAttemptDTO) {
+    Attempt attempt = attemptRepository.findOne(updateStatusAttemptDTO.getAttemptId());
+    attempt.setAttemptStatus(updateStatusAttemptDTO.getAttemptStatus());
     return attempt;
   }
 }

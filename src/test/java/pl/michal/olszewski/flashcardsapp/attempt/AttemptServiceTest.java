@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import pl.michal.olszewski.flashcardsapp.attempt.dto.CloseAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.dto.NewAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.dto.UpdateStatusAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 
@@ -50,9 +51,19 @@ class AttemptServiceTest {
     given(attemptRepository.findOne(1L)).willReturn(Attempt.builder().build());
 
     Attempt attempt = attemptService.closeAttempt(closeAttemptDTO);
+    assertThat(attempt.getAttemptStatus()).isEqualTo(AttemptStatusEnum.DONE.getValue());
     assertThat(attempt).isNotNull();
     Mockito.verify(attemptRepository, Mockito.times(1)).findOne(1L);
   }
 
-
+  @Test
+  void shouldUpdateAttemptStatus(){
+    UpdateStatusAttemptDTO statusAttemptDTO=UpdateStatusAttemptDTO.builder().attemptStatus(AttemptStatusEnum.DONE).attemptId(1L).build();
+    given(attemptRepository.findOne(1L)).willReturn(Attempt.builder().build());
+    Attempt attempt = attemptService.updateAttemptStatus(statusAttemptDTO);
+    assertThat(attempt.getAttemptStatus()).isEqualTo(AttemptStatusEnum.DONE.getValue());
+    assertThat(attempt).isNotNull();
+    Mockito.verify(attemptRepository, Mockito.times(1)).findOne(1L);
+  }
+  
 }
