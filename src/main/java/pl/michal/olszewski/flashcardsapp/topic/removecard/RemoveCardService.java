@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.removecard;
+package pl.michal.olszewski.flashcardsapp.topic.removecard;
 
 import java.util.List;
 import pl.michal.olszewski.flashcardsapp.cards.Card;

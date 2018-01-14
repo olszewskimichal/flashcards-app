@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.cards.test;
+package pl.michal.olszewski.flashcardsapp.testcards;
 
 import lombok.Getter;
 

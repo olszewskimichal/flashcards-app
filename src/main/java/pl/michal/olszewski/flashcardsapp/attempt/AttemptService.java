@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.attempt.dto.CloseAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.dto.NewAttemptDTO;
-import pl.michal.olszewski.flashcardsapp.cards.test.TestCard;
-import pl.michal.olszewski.flashcardsapp.cards.test.TestCardLevelEnum;
+import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
+import pl.michal.olszewski.flashcardsapp.testcards.TestCardLevelEnum;
 
 @Service
 public class AttemptService {

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import pl.michal.olszewski.flashcardsapp.attempt.Attempt;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.cards.Card;
-import pl.michal.olszewski.flashcardsapp.cards.test.TestCard;
+import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 import pl.michal.olszewski.flashcardsapp.user.User;
 

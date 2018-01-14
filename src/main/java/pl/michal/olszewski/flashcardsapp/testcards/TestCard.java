@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.cards.test;
+package pl.michal.olszewski.flashcardsapp.testcards;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -6,12 +6,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import pl.michal.olszewski.flashcardsapp.attempt.Attempt;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.cards.Card;
 
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 public class TestCard extends BaseEntity {
 
   @ManyToOne
