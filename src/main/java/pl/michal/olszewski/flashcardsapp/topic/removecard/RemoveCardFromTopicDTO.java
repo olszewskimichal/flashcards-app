@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.addcard;
+package pl.michal.olszewski.flashcardsapp.topic.removecard;
 
 import java.util.List;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import pl.michal.olszewski.flashcardsapp.base.DataTransferObject;
 
 @Builder
 @Getter
-public class AddCardToTopicDTO implements DataTransferObject {
+public class RemoveCardFromTopicDTO implements DataTransferObject {
 
   private final Long topicId;
   private final List<Long> cardsIds;

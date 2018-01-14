@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.addcard;
+package pl.michal.olszewski.flashcardsapp.topic.removecard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -15,9 +15,9 @@ import pl.michal.olszewski.flashcardsapp.topic.Topic;
 import pl.michal.olszewski.flashcardsapp.topic.TopicService;
 
 @ExtendWith(MockitoExtension.class)
-class AddCardServiceTest {
+class RemoveCardServiceTest {
 
-  private AddCardService addCardService;
+  private RemoveCardService removeCardService;
 
   @Mock
   private CardService cardService;
@@ -27,20 +27,22 @@ class AddCardServiceTest {
 
   @BeforeEach
   void setUp() {
-    addCardService = new AddCardService(cardService, topicService);
+    removeCardService = new RemoveCardService(cardService, topicService);
   }
 
   @Test
-  void shouldAddCardsToTopic() {
+  void shouldRemoveCardsToTopic() {
     //given
     Card cardOne = Card.builder().id(1L).build();
     Card cardTwo = Card.builder().id(2L).build();
     Topic topic = Topic.builder().id(1L).build();
+    topic.getCards().add(cardOne);
+    topic.getCards().add(cardTwo);
     given(cardService.findCardsByIds(Arrays.asList(1L, 2L))).willReturn(Arrays.asList(cardOne, cardTwo));
     given(topicService.findTopicById(1L)).willReturn(topic);
     //when
-    topic = addCardService.addCardsToTopic(AddCardToTopicDTO.builder().topicId(1L).cardsIds(Arrays.asList(1L, 2L)).build());
+    topic = removeCardService.removeCardsFromTopic(RemoveCardFromTopicDTO.builder().topicId(1L).cardsIds(Arrays.asList(1L, 2L)).build());
     //then
-    assertThat(topic.getCards()).hasSize(2);
+    assertThat(topic.getCards()).hasSize(0);
   }
 }

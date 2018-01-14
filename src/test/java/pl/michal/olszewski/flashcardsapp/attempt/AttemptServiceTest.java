@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import pl.michal.olszewski.flashcardsapp.attempt.dto.CloseAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.dto.NewAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.topic.Topic;
 
 @ExtendWith(MockitoExtension.class)
 class AttemptServiceTest {
@@ -32,7 +33,8 @@ class AttemptServiceTest {
   @Test
   void shouldCreateNewAttempt() {
     NewAttemptDTO newAttemptDTO = NewAttemptDTO.builder().attemptCount(1L).testId(1L).userId(1L).build();
-    given(objectMapper.convertFromDTO(Matchers.any(NewAttemptDTO.class))).willReturn(Attempt.builder().test(pl.michal.olszewski.flashcardsapp.test.Test.builder().build()).build());
+    given(objectMapper.convertFromDTO(Matchers.any(NewAttemptDTO.class)))
+        .willReturn(Attempt.builder().test(pl.michal.olszewski.flashcardsapp.test.Test.builder().topic(Topic.builder().build()).build()).build());
 
     Attempt attempt = attemptService.createNewAttempt(newAttemptDTO);
 

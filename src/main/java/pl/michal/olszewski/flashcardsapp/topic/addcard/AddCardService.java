@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.addcard;
+package pl.michal.olszewski.flashcardsapp.topic.addcard;
 
 import java.util.List;
 import org.springframework.stereotype.Service;

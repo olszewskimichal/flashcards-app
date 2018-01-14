@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Instant;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.RepeatedTest;
 
 
 class CurrentTimeDateTimeServiceTest {
@@ -17,13 +17,13 @@ class CurrentTimeDateTimeServiceTest {
     timeService = new CurrentTimeDateTimeService();
   }
 
-  @Test
+  @RepeatedTest(10)
   void shouldGetCurrentDateTime() {
     //given
     Instant dateTime = timeService.getCurrentDateTime();
     //when
     Instant currentDateTime = timeService.getCurrentDateTime();
     //then
-    assertThat(currentDateTime).isAfter(dateTime);
+    assertThat(currentDateTime).isAfterOrEqualTo(dateTime);
   }
 }
