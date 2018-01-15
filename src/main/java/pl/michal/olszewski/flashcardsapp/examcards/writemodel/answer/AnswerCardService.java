@@ -1,8 +1,8 @@
-package pl.michal.olszewski.flashcardsapp.examcards.answer;
+package pl.michal.olszewski.flashcardsapp.examcards.writemodel.answer;
 
 import java.util.Objects;
 import org.springframework.stereotype.Service;
-import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCard;
 import pl.michal.olszewski.flashcardsapp.examcards.ExamCardRepository;
 
 @Service

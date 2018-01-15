@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.examcards.question;
+package pl.michal.olszewski.flashcardsapp.examcards.readmodel.question;
 
 import java.util.Collections;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.attempt.AttemptRepository;
-import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
-import pl.michal.olszewski.flashcardsapp.examcards.ExamCardLevelEnum;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCard;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCardLevelEnum;
 
 @Service
 public class QuestionCardService {

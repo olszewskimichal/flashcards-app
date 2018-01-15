@@ -1,7 +1,8 @@
-package pl.michal.olszewski.flashcardsapp.examcards.question;
+package pl.michal.olszewski.flashcardsapp.examcards.readmodel.question;
 
 import org.springframework.stereotype.Component;
-import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCard;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.question.ExamCardQuestionDTO;
 
 @Component
 public class ExamCardQuestionObjectMapper {

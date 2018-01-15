@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.cards.read.Card;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCard;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCardLevelEnum;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.examcards.answer.AnswerCardService;
-import pl.michal.olszewski.flashcardsapp.examcards.answer.ExamCardAnswerDTO;
+import pl.michal.olszewski.flashcardsapp.examcards.writemodel.answer.AnswerCardService;
+import pl.michal.olszewski.flashcardsapp.examcards.writemodel.answer.ExamCardAnswerDTO;
 
 @ExtendWith(MockitoExtension.class)
 class AnswerCardServiceTest {

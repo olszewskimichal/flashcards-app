@@ -11,9 +11,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.attempt.AttemptRepository;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.question.ExamCardQuestionDTO;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.question.ExamCardQuestionObjectMapper;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.question.GetTestCardQuestionDTO;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.question.QuestionCardService;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
-import pl.michal.olszewski.flashcardsapp.examcards.ExamCardLevelEnum;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCard;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCardLevelEnum;
 
 @ExtendWith(MockitoExtension.class)
 class QuestionCardServiceTest {

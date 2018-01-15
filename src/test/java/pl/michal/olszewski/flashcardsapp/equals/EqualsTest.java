@@ -6,7 +6,7 @@ import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
-import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCard;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 import pl.michal.olszewski.flashcardsapp.user.User;
 

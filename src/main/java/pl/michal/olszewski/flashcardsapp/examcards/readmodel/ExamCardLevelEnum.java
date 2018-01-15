@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.examcards;
+package pl.michal.olszewski.flashcardsapp.examcards.readmodel;
 
 import lombok.Getter;
 

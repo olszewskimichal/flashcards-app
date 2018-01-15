@@ -10,8 +10,8 @@ import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptStatusEnum;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.CloseAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.NewAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.UpdateStatusAttemptDTO;
-import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
-import pl.michal.olszewski.flashcardsapp.examcards.ExamCardLevelEnum;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCard;
+import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCardLevelEnum;
 
 @Service
 public class AttemptService {
