@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.cards.read.Card;
+import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
 import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 import pl.michal.olszewski.flashcardsapp.user.User;
@@ -37,7 +38,7 @@ class EqualsTest {
     Topic topicOne = Topic.builder().name("name1").id(1L).build();
     Topic topicTwo = Topic.builder().name("name2").id(2L).build();
 
-    EqualsVerifier.forClass(pl.michal.olszewski.flashcardsapp.test.Test.class)
+    EqualsVerifier.forClass(Exam.class)
         .withPrefabValues(Attempt.class, attemptOne, attemptTwo)
         .withPrefabValues(Topic.class, topicOne, topicTwo)
         .withRedefinedSuperclass().verify();
@@ -45,14 +46,14 @@ class EqualsTest {
 
   @Test
   void attemptEqualsContractTest() {
-    pl.michal.olszewski.flashcardsapp.test.Test testOne = pl.michal.olszewski.flashcardsapp.test.Test.builder().id(1L).build();
-    pl.michal.olszewski.flashcardsapp.test.Test testTwo = pl.michal.olszewski.flashcardsapp.test.Test.builder().id(2L).build();
+    Exam testOne = Exam.builder().id(1L).build();
+    Exam testTwo = Exam.builder().id(2L).build();
 
     TestCard testCardOne = TestCard.builder().id(1L).build();
     TestCard testCardTwo = TestCard.builder().id(2L).build();
 
     EqualsVerifier.forClass(Attempt.class)
-        .withPrefabValues(pl.michal.olszewski.flashcardsapp.test.Test.class, testOne, testTwo)
+        .withPrefabValues(Exam.class, testOne, testTwo)
         .withPrefabValues(TestCard.class, testCardOne, testCardTwo)
         .withRedefinedSuperclass().verify();
   }

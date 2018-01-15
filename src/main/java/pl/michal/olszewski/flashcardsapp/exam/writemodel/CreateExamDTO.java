@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.test;
+package pl.michal.olszewski.flashcardsapp.exam.writemodel;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import pl.michal.olszewski.flashcardsapp.base.DataTransferObject;
 
 @Builder
 @Getter
-public class TestDTO implements DataTransferObject {
+public class CreateExamDTO implements DataTransferObject {
 
   private final Long topicId;
 

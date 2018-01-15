@@ -26,8 +26,8 @@ public class AttemptService {
 
   public Attempt createNewAttempt(NewAttemptDTO newAttemptDTO) {
     Attempt attempt = objectMapper.convertFromDTO(newAttemptDTO);
-    attempt.getTest().addAttempt(attempt);
-    List<TestCard> testCards = attempt.getTest().getTopic().getCards().stream()
+    attempt.getExam().addAttempt(attempt);
+    List<TestCard> testCards = attempt.getExam().getTopic().getCards().stream()
         .map(v -> TestCard.builder().attempt(attempt).card(v).testLevel(TestCardLevelEnum.NEW.getValue()).build()).collect(Collectors.toList());
     attempt.setCardList(testCards);
     attemptRepository.save(attempt);

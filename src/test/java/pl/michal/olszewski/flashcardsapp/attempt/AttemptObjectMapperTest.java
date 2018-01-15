@@ -14,8 +14,9 @@ import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptStatusEnum;
 import pl.michal.olszewski.flashcardsapp.attempt.read.dto.AttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.NewAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.UpdateStatusAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.test.TestRepository;
+import pl.michal.olszewski.flashcardsapp.exam.writemodel.ExamRepository;
 import pl.michal.olszewski.flashcardsapp.time.DateTimeService;
 import pl.michal.olszewski.flashcardsapp.user.User;
 import pl.michal.olszewski.flashcardsapp.user.UserRepository;
@@ -25,7 +26,7 @@ import pl.michal.olszewski.flashcardsapp.user.UserRepository;
 class AttemptObjectMapperTest {
 
   @Mock
-  private TestRepository testRepository;
+  private ExamRepository examRepository;
 
   @Mock
   private UserRepository userRepository;
@@ -37,7 +38,7 @@ class AttemptObjectMapperTest {
 
   @BeforeEach
   void setUp() {
-    mapper = new AttemptObjectMapper(userRepository, testRepository, timeService);
+    mapper = new AttemptObjectMapper(userRepository, examRepository, timeService);
   }
 
   @Test
@@ -49,14 +50,14 @@ class AttemptObjectMapperTest {
         .userId(3L)
         .build();
     given(userRepository.findOne(3L)).willReturn(User.builder().build());
-    given(testRepository.findOne(2L)).willReturn(pl.michal.olszewski.flashcardsapp.test.Test.builder().build());
+    given(examRepository.findOne(2L)).willReturn(Exam.builder().build());
     //when
     Attempt attempt = mapper.convertFromDTO(newAttemptDTO);
     //then
     assertThat(attempt).isNotNull();
     assertThat(attempt.getAttemptCount()).isEqualTo(1L);
     assertThat(attempt.getAttemptStatus()).isEqualTo(AttemptStatusEnum.NEW.getValue());
-    assertThat(attempt.getTest()).isNotNull();
+    assertThat(attempt.getExam()).isNotNull();
     assertThat(attempt.getUser()).isNotNull();
   }
 
@@ -93,7 +94,7 @@ class AttemptObjectMapperTest {
     Attempt attempt = Attempt.builder()
         .id(1L)
         .user(User.builder().id(2L).build())
-        .test(pl.michal.olszewski.flashcardsapp.test.Test.builder().id(3L).build())
+        .exam(Exam.builder().id(3L).build())
         .startDateTime(Instant.now())
         .attemptStatus(AttemptStatusEnum.DONE)
         .attemptCount(1L)
@@ -112,7 +113,8 @@ class AttemptObjectMapperTest {
   @Test
   void shouldUpdateFrom() {
     //given
-    Attempt attempt = Attempt.builder().id(1L).test(pl.michal.olszewski.flashcardsapp.test.Test.builder().id(2L).build())
+    Attempt attempt = Attempt.builder().id(1L)
+        .exam(Exam.builder().id(2L).build())
         .user(User.builder().id(4L).build())
         .attemptCount(1L)
         .attemptStatus(AttemptStatusEnum.DURING)

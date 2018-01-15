@@ -7,7 +7,7 @@ import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptStatusEnum;
 import pl.michal.olszewski.flashcardsapp.attempt.read.dto.AttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.NewAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.UpdateStatusAttemptDTO;
-import pl.michal.olszewski.flashcardsapp.test.TestRepository;
+import pl.michal.olszewski.flashcardsapp.exam.writemodel.ExamRepository;
 import pl.michal.olszewski.flashcardsapp.time.DateTimeService;
 import pl.michal.olszewski.flashcardsapp.user.UserRepository;
 
@@ -15,12 +15,12 @@ import pl.michal.olszewski.flashcardsapp.user.UserRepository;
 public class AttemptObjectMapper {
 
   private final UserRepository userRepository;
-  private final TestRepository testRepository;
+  private final ExamRepository examRepository;
   private final DateTimeService timeService;
 
-  public AttemptObjectMapper(UserRepository userRepository, TestRepository testRepository, DateTimeService timeService) {
+  public AttemptObjectMapper(UserRepository userRepository, ExamRepository examRepository, DateTimeService timeService) {
     this.userRepository = userRepository;
-    this.testRepository = testRepository;
+    this.examRepository = examRepository;
     this.timeService = timeService;
   }
 
@@ -31,7 +31,7 @@ public class AttemptObjectMapper {
         .attemptCount(transferObject.getAttemptCount())
         .attemptStatus(AttemptStatusEnum.NEW)
         .startDateTime(timeService.getCurrentDateTime())
-        .test(testRepository.findOne(transferObject.getTestId()))
+        .exam(examRepository.findOne(transferObject.getTestId()))
         .user(userRepository.findOne(transferObject.getUserId()))
         .build();
   }
@@ -39,7 +39,7 @@ public class AttemptObjectMapper {
   public AttemptDTO convertToDTO(Attempt entity) {
     return AttemptDTO.builder()
         .attemptId(entity.getId())
-        .testId(entity.getTest().getId())
+        .testId(entity.getExam().getId())
         .userId(entity.getUser().getId())
         .attemptCount(entity.getAttemptCount())
         .attemptStatus(AttemptStatusEnum.fromValue(entity.getAttemptStatus()))

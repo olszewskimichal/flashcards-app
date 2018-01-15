@@ -15,6 +15,7 @@ import pl.michal.olszewski.flashcardsapp.attempt.write.AttemptService;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.CloseAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.NewAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.UpdateStatusAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 
@@ -38,12 +39,12 @@ class AttemptServiceTest {
   void shouldCreateNewAttempt() {
     NewAttemptDTO newAttemptDTO = NewAttemptDTO.builder().attemptCount(1L).testId(1L).userId(1L).build();
     given(objectMapper.convertFromDTO(Matchers.any(NewAttemptDTO.class)))
-        .willReturn(Attempt.builder().test(pl.michal.olszewski.flashcardsapp.test.Test.builder().topic(Topic.builder().build()).build()).build());
+        .willReturn(Attempt.builder().exam(Exam.builder().topic(Topic.builder().build()).build()).build());
 
     Attempt attempt = attemptService.createNewAttempt(newAttemptDTO);
 
     assertThat(attempt).isNotNull();
-    assertThat(attempt.getTest().getAttempts()).isNotEmpty();
+    assertThat(attempt.getExam().getAttempts()).isNotEmpty();
 
     Mockito.verify(attemptRepository, Mockito.times(1)).save(attempt);
   }

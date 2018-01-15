@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.test;
+package pl.michal.olszewski.flashcardsapp.exam;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,43 +9,47 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
+import pl.michal.olszewski.flashcardsapp.exam.writemodel.CreateExamDTO;
+import pl.michal.olszewski.flashcardsapp.exam.writemodel.ExamRepository;
+import pl.michal.olszewski.flashcardsapp.exam.writemodel.ExamService;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 
 @ExtendWith(MockitoExtension.class)
-class TestServiceTest {
+class ExamServiceTest {
 
-  private TestService testService;
+  private ExamService service;
 
   @Mock
   private TopicRepository topicRepository;
 
   @Mock
-  private TestRepository testRepository;
+  private ExamRepository repository;
 
 
   @BeforeEach
   void setUp() {
-    testService = new TestService(testRepository, topicRepository);
+    service = new ExamService(repository, topicRepository);
   }
 
   @Test
   void shouldCreateNewTest() {
-    TestDTO testDTO = TestDTO.builder().topicId(1L).build();
+    CreateExamDTO createExamDTO = CreateExamDTO.builder().topicId(1L).build();
     given(topicRepository.findOne(1L)).willReturn(Topic.builder().build());
 
-    pl.michal.olszewski.flashcardsapp.test.Test test = testService.createNewTest(testDTO);
+    Exam test = service.createNewExam(createExamDTO);
 
     assertThat(test).isNotNull();
-    Mockito.verify(testRepository, Mockito.times(1)).save(test);
+    Mockito.verify(repository, Mockito.times(1)).save(test);
   }
 
   @Test
   void shouldThrowExceptionWhenTopicIdIsNull() {
-    TestDTO testDTO = TestDTO.builder().build();
+    CreateExamDTO createExamDTO = CreateExamDTO.builder().build();
 
-    NullPointerException exception = assertThrows(NullPointerException.class, () -> testService.createNewTest(testDTO));
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> service.createNewExam(createExamDTO));
     assertThat(exception).hasMessage("Nie mozna stworzyc testu bez tematu");
   }
 }

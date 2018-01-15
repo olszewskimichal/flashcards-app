@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.test;
+package pl.michal.olszewski.flashcardsapp.exam.readmodel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,16 +18,16 @@ import pl.michal.olszewski.flashcardsapp.topic.Topic;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Getter
-public class Test extends BaseEntity {
+public class Exam extends BaseEntity {
 
   @OneToOne(fetch = FetchType.LAZY)
   @MapsId
   private Topic topic;
-  @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Attempt> attempts;
 
   @Builder
-  public Test(Long id, Topic topic, List<Attempt> attempts) {
+  public Exam(Long id, Topic topic, List<Attempt> attempts) {
     super(id);
     this.topic = topic;
     this.attempts = attempts;
@@ -35,7 +35,7 @@ public class Test extends BaseEntity {
 
   public void addAttempt(Attempt attempt) {
     getAttempts().add(attempt);
-    attempt.setTest(this);
+    attempt.setExam(this);
   }
 
   public List<Attempt> getAttempts() {
