@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.attempt.dto;
+package pl.michal.olszewski.flashcardsapp.attempt.write.dto;
 
 import lombok.Builder;
 import lombok.Getter;

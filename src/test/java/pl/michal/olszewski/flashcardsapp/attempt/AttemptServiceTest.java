@@ -9,9 +9,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import pl.michal.olszewski.flashcardsapp.attempt.dto.CloseAttemptDTO;
-import pl.michal.olszewski.flashcardsapp.attempt.dto.NewAttemptDTO;
-import pl.michal.olszewski.flashcardsapp.attempt.dto.UpdateStatusAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
+import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptStatusEnum;
+import pl.michal.olszewski.flashcardsapp.attempt.write.AttemptService;
+import pl.michal.olszewski.flashcardsapp.attempt.write.dto.CloseAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.write.dto.NewAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.write.dto.UpdateStatusAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 

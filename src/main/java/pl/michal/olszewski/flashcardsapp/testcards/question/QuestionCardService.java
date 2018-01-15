@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
-import pl.michal.olszewski.flashcardsapp.attempt.Attempt;
+import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.attempt.AttemptRepository;
 import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
 import pl.michal.olszewski.flashcardsapp.testcards.TestCardLevelEnum;

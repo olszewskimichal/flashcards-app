@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.attempt;
+package pl.michal.olszewski.flashcardsapp.attempt.read;
 
 import java.time.Instant;
 import java.util.List;
