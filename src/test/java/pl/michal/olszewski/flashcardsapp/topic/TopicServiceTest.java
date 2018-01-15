@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 import pl.michal.olszewski.flashcardsapp.topic.TopicDTO;
 import pl.michal.olszewski.flashcardsapp.topic.TopicNotFoundException;

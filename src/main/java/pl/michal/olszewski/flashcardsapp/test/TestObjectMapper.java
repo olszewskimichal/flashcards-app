@@ -1,7 +1,7 @@
 package pl.michal.olszewski.flashcardsapp.test;
 
 import org.springframework.stereotype.Component;
-import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
 import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 
 @Component("TestObjectMapper")

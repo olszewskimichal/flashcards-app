@@ -17,7 +17,7 @@ import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 import pl.michal.olszewski.flashcardsapp.cards.read.CardService;
 import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 class CardServiceTest {

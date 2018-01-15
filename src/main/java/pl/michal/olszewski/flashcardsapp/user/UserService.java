@@ -2,7 +2,7 @@ package pl.michal.olszewski.flashcardsapp.user;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
 
 @Service
 public class UserService {

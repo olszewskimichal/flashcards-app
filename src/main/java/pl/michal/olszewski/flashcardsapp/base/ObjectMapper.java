@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.mapper;
+package pl.michal.olszewski.flashcardsapp.base;
 
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.base.DataTransferObject;
