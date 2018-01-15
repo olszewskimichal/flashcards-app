@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.testcards.answer;
+package pl.michal.olszewski.flashcardsapp.examcards.answer;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,8 +6,8 @@ import pl.michal.olszewski.flashcardsapp.base.DataTransferObject;
 
 @Builder
 @Getter
-public class TestCardAnswerDTO implements DataTransferObject {
+public class ExamCardAnswerDTO implements DataTransferObject {
 
-  private Long testCardId;
+  private Long examCardId;
   private String answer;
 }

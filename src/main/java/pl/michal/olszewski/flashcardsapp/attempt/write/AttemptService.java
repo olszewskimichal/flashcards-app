@@ -10,8 +10,8 @@ import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptStatusEnum;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.CloseAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.NewAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.UpdateStatusAttemptDTO;
-import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
-import pl.michal.olszewski.flashcardsapp.testcards.TestCardLevelEnum;
+import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
+import pl.michal.olszewski.flashcardsapp.examcards.ExamCardLevelEnum;
 
 @Service
 public class AttemptService {
@@ -27,9 +27,9 @@ public class AttemptService {
   public Attempt createNewAttempt(NewAttemptDTO newAttemptDTO) {
     Attempt attempt = objectMapper.convertFromDTO(newAttemptDTO);
     attempt.getExam().addAttempt(attempt);
-    List<TestCard> testCards = attempt.getExam().getTopic().getCards().stream()
-        .map(v -> TestCard.builder().attempt(attempt).card(v).testLevel(TestCardLevelEnum.NEW.getValue()).build()).collect(Collectors.toList());
-    attempt.setCardList(testCards);
+    List<ExamCard> examCards = attempt.getExam().getTopic().getCards().stream()
+        .map(v -> ExamCard.builder().attempt(attempt).card(v).testLevel(ExamCardLevelEnum.NEW.getValue()).build()).collect(Collectors.toList());
+    attempt.setCardList(examCards);
     attemptRepository.save(attempt);
     return attempt;
   }

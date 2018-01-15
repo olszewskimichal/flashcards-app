@@ -1,24 +1,24 @@
-package pl.michal.olszewski.flashcardsapp.testcards.question;
+package pl.michal.olszewski.flashcardsapp.examcards.question;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.cards.read.Card;
-import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
+import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
 
-class TestCardObjectMapperTestQuestion {
+class ExamQuestionCardObjectMapperTest {
 
-  private TestCardQuestionObjectMapper testCardQuestionObjectMapper = new TestCardQuestionObjectMapper();
+  private ExamCardQuestionObjectMapper examCardQuestionObjectMapper = new ExamCardQuestionObjectMapper();
 
   @Test
   void shouldConvertToDTO() {
-    TestCard testCard = TestCard.builder()
+    ExamCard examCard = ExamCard.builder()
         .id(2L)
         .attempt(Attempt.builder().id(1L).build())
         .card(Card.builder().question("question1").build())
         .build();
-    TestCardQuestionDTO cardQuestionDTO = testCardQuestionObjectMapper.convertToDTO(testCard);
+    ExamCardQuestionDTO cardQuestionDTO = examCardQuestionObjectMapper.convertToDTO(examCard);
 
     assertThat(cardQuestionDTO.getAttemptId()).isNotNull().isEqualTo(1L);
     assertThat(cardQuestionDTO.getQuestion()).isNotEmpty().isEqualTo("question1");

@@ -1,9 +1,9 @@
-package pl.michal.olszewski.flashcardsapp.testcards;
+package pl.michal.olszewski.flashcardsapp.examcards;
 
 import lombok.Getter;
 
 @Getter
-public enum TestCardLevelEnum {
+public enum ExamCardLevelEnum {
 
   NEW(1, "Nowe"),
   BAD(2, "Słabo znane"),
@@ -15,7 +15,7 @@ public enum TestCardLevelEnum {
 
   private final String description;
 
-  private TestCardLevelEnum(long i, String description) {
+  private ExamCardLevelEnum(long i, String description) {
     this.description = description;
     this.value = i;
   }

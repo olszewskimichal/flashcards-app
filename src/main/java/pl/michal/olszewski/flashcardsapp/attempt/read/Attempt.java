@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
-import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
+import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
 import pl.michal.olszewski.flashcardsapp.user.User;
 
 
@@ -38,7 +38,7 @@ public class Attempt extends BaseEntity {
   private Exam exam;
 
   @OneToMany(mappedBy = "attempt", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<TestCard> cardList;
+  private List<ExamCard> cardList;
 
   @Builder
   public Attempt(Long id, User user, Instant startDateTime, Instant endDateTime, Long attemptCount, AttemptStatusEnum attemptStatus, Exam exam) {

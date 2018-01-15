@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.testcards;
+package pl.michal.olszewski.flashcardsapp.examcards;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -16,7 +16,7 @@ import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-public class TestCard extends BaseEntity {
+public class ExamCard extends BaseEntity {
 
   @ManyToOne
   @JoinColumn(name = "card_id")
@@ -31,7 +31,7 @@ public class TestCard extends BaseEntity {
   private Boolean isCorrect;
 
   @Builder
-  public TestCard(Long id, Card card, Attempt attempt, Long testLevel, Boolean isCorrect) {
+  public ExamCard(Long id, Card card, Attempt attempt, Long testLevel, Boolean isCorrect) {
     super(id);
     this.card = card;
     this.attempt = attempt;

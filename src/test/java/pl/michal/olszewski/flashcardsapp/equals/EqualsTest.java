@@ -6,7 +6,7 @@ import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
-import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
+import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 import pl.michal.olszewski.flashcardsapp.user.User;
 
@@ -49,12 +49,12 @@ class EqualsTest {
     Exam testOne = Exam.builder().id(1L).build();
     Exam testTwo = Exam.builder().id(2L).build();
 
-    TestCard testCardOne = TestCard.builder().id(1L).build();
-    TestCard testCardTwo = TestCard.builder().id(2L).build();
+    ExamCard examCardOne = ExamCard.builder().id(1L).build();
+    ExamCard examCardTwo = ExamCard.builder().id(2L).build();
 
     EqualsVerifier.forClass(Attempt.class)
         .withPrefabValues(Exam.class, testOne, testTwo)
-        .withPrefabValues(TestCard.class, testCardOne, testCardTwo)
+        .withPrefabValues(ExamCard.class, examCardOne, examCardTwo)
         .withRedefinedSuperclass().verify();
   }
 
@@ -72,7 +72,7 @@ class EqualsTest {
     Attempt attemptOne = Attempt.builder().id(1L).build();
     Attempt attemptTwo = Attempt.builder().id(2L).build();
 
-    EqualsVerifier.forClass(TestCard.class)
+    EqualsVerifier.forClass(ExamCard.class)
         .withPrefabValues(Attempt.class, attemptOne, attemptTwo)
         .withPrefabValues(Card.class, cardOne, cardTwo)
         .withRedefinedSuperclass().verify();

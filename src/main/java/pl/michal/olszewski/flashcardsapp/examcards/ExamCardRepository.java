@@ -1,9 +1,9 @@
-package pl.michal.olszewski.flashcardsapp.testcards;
+package pl.michal.olszewski.flashcardsapp.examcards;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TestCardRepository extends JpaRepository<TestCard, Long> {
+public interface ExamCardRepository extends JpaRepository<ExamCard, Long> {
 
 }

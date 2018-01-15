@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.testcards.question;
+package pl.michal.olszewski.flashcardsapp.examcards.question;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -12,8 +12,8 @@ import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.attempt.AttemptRepository;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
-import pl.michal.olszewski.flashcardsapp.testcards.TestCardLevelEnum;
+import pl.michal.olszewski.flashcardsapp.examcards.ExamCard;
+import pl.michal.olszewski.flashcardsapp.examcards.ExamCardLevelEnum;
 
 @ExtendWith(MockitoExtension.class)
 class QuestionCardServiceTest {
@@ -24,20 +24,20 @@ class QuestionCardServiceTest {
   private AttemptRepository attemptRepository;
 
   @Mock
-  private TestCardQuestionObjectMapper testCardQuestionObjectMapper;
+  private ExamCardQuestionObjectMapper examCardQuestionObjectMapper;
 
   @BeforeEach
   void setUp() {
-    questionCardService = new QuestionCardService(attemptRepository, testCardQuestionObjectMapper);
+    questionCardService = new QuestionCardService(attemptRepository, examCardQuestionObjectMapper);
   }
 
   @Test
   void shouldGetNextTestCardQuestion() {
     GetTestCardQuestionDTO dto = GetTestCardQuestionDTO.builder().attemptId(1L).build();
     Attempt attempt = Attempt.builder().build();
-    attempt.setCardList(Collections.singletonList(TestCard.builder().id(2L).testLevel(TestCardLevelEnum.GOOD.getValue()).build()));
+    attempt.setCardList(Collections.singletonList(ExamCard.builder().id(2L).testLevel(ExamCardLevelEnum.GOOD.getValue()).build()));
     given(attemptRepository.findOne(1L)).willReturn(attempt);
-    Optional<TestCard> nextTestCardQuestion = questionCardService.getNextTestCardQuestion(dto);
+    Optional<ExamCard> nextTestCardQuestion = questionCardService.getNextTestCardQuestion(dto);
 
     assertThat(nextTestCardQuestion).isPresent();
   }
@@ -46,9 +46,9 @@ class QuestionCardServiceTest {
   void shouldNotGetNextTestCardQuestionWhenAllTestCardsArePerfect() {
     GetTestCardQuestionDTO dto = GetTestCardQuestionDTO.builder().attemptId(1L).build();
     Attempt attempt = Attempt.builder().build();
-    attempt.setCardList(Collections.singletonList(TestCard.builder().id(2L).testLevel(TestCardLevelEnum.PERFECT.getValue()).build()));
+    attempt.setCardList(Collections.singletonList(ExamCard.builder().id(2L).testLevel(ExamCardLevelEnum.PERFECT.getValue()).build()));
     given(attemptRepository.findOne(1L)).willReturn(attempt);
-    Optional<TestCard> nextTestCardQuestion = questionCardService.getNextTestCardQuestion(dto);
+    Optional<ExamCard> nextTestCardQuestion = questionCardService.getNextTestCardQuestion(dto);
 
     assertThat(nextTestCardQuestion).isNotPresent();
   }
@@ -59,23 +59,23 @@ class QuestionCardServiceTest {
     Attempt attempt = Attempt.builder().build();
     attempt.setCardList(Collections.emptyList());
     given(attemptRepository.findOne(1L)).willReturn(attempt);
-    Optional<TestCard> nextTestCardQuestion = questionCardService.getNextTestCardQuestion(dto);
+    Optional<ExamCard> nextTestCardQuestion = questionCardService.getNextTestCardQuestion(dto);
 
     assertThat(nextTestCardQuestion).isNotPresent();
   }
 
   @Test
   void shouldMapTestCardToDTO() {
-    TestCard testCard = TestCard.builder().build();
-    given(testCardQuestionObjectMapper.convertToDTO(testCard)).willReturn(TestCardQuestionDTO.builder().build());
+    ExamCard examCard = ExamCard.builder().build();
+    given(examCardQuestionObjectMapper.convertToDTO(examCard)).willReturn(ExamCardQuestionDTO.builder().build());
 
-    Optional<TestCardQuestionDTO> cardQuestionDTO = questionCardService.mapTestCardToDTO(Optional.of(testCard));
+    Optional<ExamCardQuestionDTO> cardQuestionDTO = questionCardService.mapTestCardToDTO(Optional.of(examCard));
     assertThat(cardQuestionDTO).isPresent();
   }
 
   @Test
   void shouldReturnOptionalEmpty() {
-    Optional<TestCardQuestionDTO> cardQuestionDTO = questionCardService.mapTestCardToDTO(Optional.ofNullable(null));
+    Optional<ExamCardQuestionDTO> cardQuestionDTO = questionCardService.mapTestCardToDTO(Optional.ofNullable(null));
     assertThat(cardQuestionDTO).isNotPresent();
   }
 
