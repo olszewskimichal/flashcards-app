@@ -1,10 +1,10 @@
-package pl.michal.olszewski.flashcardsapp.topic.addcard;
+package pl.michal.olszewski.flashcardsapp.topic.writemodel.addcard;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 import pl.michal.olszewski.flashcardsapp.cards.read.CardService;
-import pl.michal.olszewski.flashcardsapp.topic.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
 import pl.michal.olszewski.flashcardsapp.topic.TopicService;
 
 @Service

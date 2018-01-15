@@ -17,7 +17,7 @@ import pl.michal.olszewski.flashcardsapp.attempt.write.dto.NewAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.UpdateStatusAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.topic.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
 
 @ExtendWith(MockitoExtension.class)
 class AttemptServiceTest {

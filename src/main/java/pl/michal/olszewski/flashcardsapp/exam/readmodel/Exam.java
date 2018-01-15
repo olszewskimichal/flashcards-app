@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
-import pl.michal.olszewski.flashcardsapp.topic.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
 
 @Entity
 @EqualsAndHashCode(callSuper = true)

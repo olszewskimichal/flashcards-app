@@ -3,6 +3,8 @@ package pl.michal.olszewski.flashcardsapp.topic;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.readmodel.TopicDTO;
 
 @Service
 public class TopicService {

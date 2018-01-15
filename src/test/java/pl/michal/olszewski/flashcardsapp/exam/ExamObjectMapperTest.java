@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
 import pl.michal.olszewski.flashcardsapp.exam.writemodel.CreateExamDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.topic.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
 import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 
 

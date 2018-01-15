@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.topic;
+package pl.michal.olszewski.flashcardsapp.topic.readmodel;
 
 import java.util.ArrayList;
 import java.util.List;

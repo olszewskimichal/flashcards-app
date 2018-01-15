@@ -1,9 +1,9 @@
-package pl.michal.olszewski.flashcardsapp.topic.removecard;
+package pl.michal.olszewski.flashcardsapp.topic.writemodel.removecard;
 
 import java.util.List;
 import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 import pl.michal.olszewski.flashcardsapp.cards.read.CardService;
-import pl.michal.olszewski.flashcardsapp.topic.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
 import pl.michal.olszewski.flashcardsapp.topic.TopicService;
 
 public class RemoveCardService {

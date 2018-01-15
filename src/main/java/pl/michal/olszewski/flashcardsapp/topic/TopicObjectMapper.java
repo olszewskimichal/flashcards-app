@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
 import pl.michal.olszewski.flashcardsapp.cards.CardObjectMapper;
 import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.readmodel.TopicDTO;
 
 @Component("TopicObjectMapper")
 public class TopicObjectMapper implements ObjectMapper<Topic, TopicDTO> {
