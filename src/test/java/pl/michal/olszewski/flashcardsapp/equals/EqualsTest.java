@@ -8,7 +8,7 @@ import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
 import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCard;
 import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
-import pl.michal.olszewski.flashcardsapp.user.User;
+import pl.michal.olszewski.flashcardsapp.user.readmodel.User;
 
 
 class EqualsTest {

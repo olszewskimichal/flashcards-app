@@ -18,7 +18,7 @@ import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.exam.writemodel.ExamRepository;
 import pl.michal.olszewski.flashcardsapp.time.DateTimeService;
-import pl.michal.olszewski.flashcardsapp.user.User;
+import pl.michal.olszewski.flashcardsapp.user.readmodel.User;
 import pl.michal.olszewski.flashcardsapp.user.UserRepository;
 
 

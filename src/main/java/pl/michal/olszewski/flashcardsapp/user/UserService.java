@@ -3,6 +3,8 @@ package pl.michal.olszewski.flashcardsapp.user;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.user.readmodel.User;
+import pl.michal.olszewski.flashcardsapp.user.writemodel.UserDTO;
 
 @Service
 public class UserService {

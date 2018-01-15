@@ -16,7 +16,7 @@ import lombok.Setter;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
 import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCard;
-import pl.michal.olszewski.flashcardsapp.user.User;
+import pl.michal.olszewski.flashcardsapp.user.readmodel.User;
 
 
 @Entity

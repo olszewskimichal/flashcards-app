@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.user;
+package pl.michal.olszewski.flashcardsapp.user.writemodel;
 
 import lombok.Builder;
 import lombok.Getter;

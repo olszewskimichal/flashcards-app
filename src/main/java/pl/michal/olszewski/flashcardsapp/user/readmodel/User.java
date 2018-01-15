@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.user;
+package pl.michal.olszewski.flashcardsapp.user.readmodel;
 
 import javax.persistence.Entity;
 import lombok.Builder;

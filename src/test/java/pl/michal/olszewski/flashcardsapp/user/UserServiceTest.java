@@ -12,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.user.readmodel.User;
+import pl.michal.olszewski.flashcardsapp.user.writemodel.UserDTO;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {

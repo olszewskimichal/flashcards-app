@@ -2,6 +2,8 @@ package pl.michal.olszewski.flashcardsapp.user;
 
 import org.springframework.stereotype.Component;
 import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
+import pl.michal.olszewski.flashcardsapp.user.readmodel.User;
+import pl.michal.olszewski.flashcardsapp.user.writemodel.UserDTO;
 
 @Component("UserObjectMapper")
 public class UserObjectMapper implements ObjectMapper<User, UserDTO> {
