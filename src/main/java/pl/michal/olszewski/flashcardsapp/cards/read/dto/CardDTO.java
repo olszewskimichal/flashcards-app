@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.cards;
+package pl.michal.olszewski.flashcardsapp.cards.read.dto;
 
 import lombok.Builder;
 import lombok.Getter;

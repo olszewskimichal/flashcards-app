@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
-import pl.michal.olszewski.flashcardsapp.cards.Card;
+import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
 
 class TestCardObjectMapperTestQuestion {

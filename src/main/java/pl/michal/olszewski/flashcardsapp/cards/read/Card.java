@@ -1,4 +1,4 @@
-package pl.michal.olszewski.flashcardsapp.cards;
+package pl.michal.olszewski.flashcardsapp.cards.read;
 
 import java.util.ArrayList;
 import java.util.List;

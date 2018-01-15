@@ -13,6 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import pl.michal.olszewski.flashcardsapp.cards.read.Card;
+import pl.michal.olszewski.flashcardsapp.cards.read.CardService;
+import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
 

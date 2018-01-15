@@ -1,8 +1,8 @@
 package pl.michal.olszewski.flashcardsapp.topic.removecard;
 
 import java.util.List;
-import pl.michal.olszewski.flashcardsapp.cards.Card;
-import pl.michal.olszewski.flashcardsapp.cards.CardService;
+import pl.michal.olszewski.flashcardsapp.cards.read.Card;
+import pl.michal.olszewski.flashcardsapp.cards.read.CardService;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 import pl.michal.olszewski.flashcardsapp.topic.TopicService;
 

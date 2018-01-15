@@ -1,8 +1,12 @@
-package pl.michal.olszewski.flashcardsapp.cards;
+package pl.michal.olszewski.flashcardsapp.cards.read;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import pl.michal.olszewski.flashcardsapp.cards.CardNotFoundException;
+import pl.michal.olszewski.flashcardsapp.cards.CardRepository;
+import pl.michal.olszewski.flashcardsapp.cards.read.Card;
+import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
 import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
 
 @Service

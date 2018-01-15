@@ -4,7 +4,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
-import pl.michal.olszewski.flashcardsapp.cards.Card;
+import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 import pl.michal.olszewski.flashcardsapp.testcards.TestCard;
 import pl.michal.olszewski.flashcardsapp.topic.Topic;
 import pl.michal.olszewski.flashcardsapp.user.User;

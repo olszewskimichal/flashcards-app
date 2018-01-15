@@ -3,7 +3,7 @@ package pl.michal.olszewski.flashcardsapp.topic;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
-import pl.michal.olszewski.flashcardsapp.cards.CardDTO;
+import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
 import pl.michal.olszewski.flashcardsapp.cards.CardObjectMapper;
 import pl.michal.olszewski.flashcardsapp.mapper.ObjectMapper;
 

@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import pl.michal.olszewski.flashcardsapp.base.DataTransferObject;
-import pl.michal.olszewski.flashcardsapp.cards.CardDTO;
+import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
 
 @Builder
 @Getter

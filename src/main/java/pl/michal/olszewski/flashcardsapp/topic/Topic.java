@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
-import pl.michal.olszewski.flashcardsapp.cards.Card;
+import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 
 @Entity
 @EqualsAndHashCode(callSuper = true)

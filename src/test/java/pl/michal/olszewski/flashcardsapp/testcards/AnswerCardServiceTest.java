@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import pl.michal.olszewski.flashcardsapp.cards.Card;
+import pl.michal.olszewski.flashcardsapp.cards.read.Card;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.testcards.answer.AnswerCardService;
 import pl.michal.olszewski.flashcardsapp.testcards.answer.TestCardAnswerDTO;
