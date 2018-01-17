@@ -6,11 +6,13 @@ import javax.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @MappedSuperclass
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
+@NoArgsConstructor
 public abstract class BaseEntity {
 
   @Id
