@@ -12,12 +12,13 @@ import org.mockito.Mockito;
 import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptStatusEnum;
 import pl.michal.olszewski.flashcardsapp.attempt.write.AttemptService;
-import pl.michal.olszewski.flashcardsapp.attempt.write.dto.CloseAttemptDTO;
-import pl.michal.olszewski.flashcardsapp.attempt.write.dto.NewAttemptDTO;
-import pl.michal.olszewski.flashcardsapp.attempt.write.dto.UpdateStatusAttemptDTO;
-import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
+import pl.michal.olszewski.flashcardsapp.attempt.write.AttemptWriteObjectMapper;
+import pl.michal.olszewski.flashcardsapp.attempt.write.dto.create.CreateAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.write.dto.update.CloseAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.attempt.write.dto.update.UpdateStatusAttemptDTO;
+import pl.michal.olszewski.flashcardsapp.exam.read.Exam;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.read.Topic;
 
 @ExtendWith(MockitoExtension.class)
 class AttemptServiceTest {
@@ -25,7 +26,7 @@ class AttemptServiceTest {
   private AttemptService attemptService;
 
   @Mock
-  private AttemptObjectMapper objectMapper;
+  private AttemptWriteObjectMapper objectMapper;
 
   @Mock
   private AttemptRepository attemptRepository;
@@ -37,11 +38,11 @@ class AttemptServiceTest {
 
   @Test
   void shouldCreateNewAttempt() {
-    NewAttemptDTO newAttemptDTO = NewAttemptDTO.builder().attemptCount(1L).testId(1L).userId(1L).build();
-    given(objectMapper.convertFromDTO(Matchers.any(NewAttemptDTO.class)))
+    CreateAttemptDTO createAttemptDTO = CreateAttemptDTO.builder().attemptCount(1L).examId(1L).userId(1L).build();
+    given(objectMapper.convertFromDTO(Matchers.any(CreateAttemptDTO.class)))
         .willReturn(Attempt.builder().exam(Exam.builder().topic(Topic.builder().build()).build()).build());
 
-    Attempt attempt = attemptService.createNewAttempt(newAttemptDTO);
+    Attempt attempt = attemptService.createNewAttempt(createAttemptDTO);
 
     assertThat(attempt).isNotNull();
     assertThat(attempt.getExam().getAttempts()).isNotEmpty();
@@ -61,13 +62,13 @@ class AttemptServiceTest {
   }
 
   @Test
-  void shouldUpdateAttemptStatus(){
-    UpdateStatusAttemptDTO statusAttemptDTO=UpdateStatusAttemptDTO.builder().attemptStatus(AttemptStatusEnum.DONE).attemptId(1L).build();
+  void shouldUpdateAttemptStatus() {
+    UpdateStatusAttemptDTO statusAttemptDTO = UpdateStatusAttemptDTO.builder().attemptStatus(AttemptStatusEnum.DONE).attemptId(1L).build();
     given(attemptRepository.findOne(1L)).willReturn(Attempt.builder().build());
     Attempt attempt = attemptService.updateAttemptStatus(statusAttemptDTO);
     assertThat(attempt.getAttemptStatus()).isEqualTo(AttemptStatusEnum.DONE.getValue());
     assertThat(attempt).isNotNull();
     Mockito.verify(attemptRepository, Mockito.times(1)).findOne(1L);
   }
-  
+
 }

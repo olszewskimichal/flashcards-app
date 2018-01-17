@@ -15,16 +15,16 @@ public class AttemptDTO implements DataTransferObject {
   private final Instant endDateTime;
   private final Long attemptCount;
   private final Long attemptStatus;
-  private final Long testId;
+  private final Long examId;
 
   @Builder
-  public AttemptDTO(Long attemptId, Long userId, Instant startDateTime, Instant endDateTime, Long attemptCount, AttemptStatusEnum attemptStatus, Long testId) {
+  public AttemptDTO(Long attemptId, Long userId, Instant startDateTime, Instant endDateTime, Long attemptCount, AttemptStatusEnum attemptStatus, Long examId) {
     this.attemptId = attemptId;
     this.userId = userId;
     this.startDateTime = startDateTime;
     this.endDateTime = endDateTime;
     this.attemptCount = attemptCount;
     this.attemptStatus = attemptStatus.getValue();
-    this.testId = testId;
+    this.examId = examId;
   }
 }

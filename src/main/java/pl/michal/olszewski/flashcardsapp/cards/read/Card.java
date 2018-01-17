@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
-import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.read.Topic;
 
 @Entity
 @Getter
@@ -29,6 +29,9 @@ public class Card extends BaseEntity {
     this.question = question;
     this.answer = answer;
     this.topics = topics;
+  }
+
+  public Card() {
   }
 
   public List<Topic> getTopics() {

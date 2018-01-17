@@ -1,6 +1,7 @@
 package pl.michal.olszewski.flashtopicsapp.topic;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -10,13 +11,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import pl.michal.olszewski.flashcardsapp.base.ReadObjectMapper;
+import pl.michal.olszewski.flashcardsapp.base.WriteObjectMapper;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
-import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
-import pl.michal.olszewski.flashcardsapp.topic.readmodel.TopicDTO;
 import pl.michal.olszewski.flashcardsapp.topic.TopicNotFoundException;
 import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 import pl.michal.olszewski.flashcardsapp.topic.TopicService;
+import pl.michal.olszewski.flashcardsapp.topic.read.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.read.TopicDTO;
 
 @ExtendWith(MockitoExtension.class)
 class TopicServiceTest {
@@ -27,17 +29,20 @@ class TopicServiceTest {
   private TopicRepository topicRepository;
 
   @Mock
-  private ObjectMapper<Topic, TopicDTO> objectMapper;
+  private ReadObjectMapper<Topic, TopicDTO> readObjectMapper;
+
+  @Mock
+  private WriteObjectMapper<Topic, TopicDTO> writeObjectMapper;
 
   @BeforeEach
   void setUp() {
-    topicService = new TopicService(topicRepository, objectMapper);
+    topicService = new TopicService(topicRepository, readObjectMapper, writeObjectMapper);
   }
 
   @Test
   void shouldCreateNewTopic() {
     TopicDTO topicDTO = TopicDTO.builder().build();
-    given(objectMapper.convertFromDTO(topicDTO)).willReturn(Topic.builder().build());
+    given(writeObjectMapper.convertFromDTO(topicDTO)).willReturn(Topic.builder().build());
     Topic topic = topicService.createTopic(topicDTO);
 
     assertThat(topic).isNotNull();
@@ -49,11 +54,23 @@ class TopicServiceTest {
     TopicDTO topicDTO = TopicDTO.builder().id(1L).name("new Name").build();
     Topic topic = Topic.builder().id(1L).name("name").build();
     given(topicRepository.findOne(1L)).willReturn(topic);
-    given(objectMapper.updateFrom(topicDTO, topic)).willReturn(Topic.builder().build());
 
     Topic updateTopic = topicService.updateTopic(topicDTO);
     assertThat(updateTopic).isNotNull();
     verify(topicRepository, times(1)).findOne(1L);
+  }
+
+  @Test
+  void shouldUpdateTopicFromTopicDTO() {
+    TopicDTO topicDTO = TopicDTO.builder().id(1L).name("newName").build();
+    Topic topic = Topic.builder().id(1L).name("name").build();
+    given(topicRepository.findOne(1L)).willReturn(topic);
+    topicService.updateTopic(topicDTO);
+    //then
+    assertAll(
+        () -> assertThat(topicDTO.getId()).isEqualTo(1L),
+        () -> assertThat(topicDTO.getName()).isEqualTo("newName")
+    );
   }
 
   @Test
@@ -69,7 +86,7 @@ class TopicServiceTest {
   void shouldReturnTopicDTOById() {
     Topic topic = Topic.builder().id(2L).build();
     given(topicRepository.findOne(2L)).willReturn(topic);
-    given(objectMapper.convertToDTO(topic)).willReturn(TopicDTO.builder().id(2L).build());
+    given(readObjectMapper.convertToDTO(topic)).willReturn(TopicDTO.builder().id(2L).build());
     TopicDTO topicDTO = topicService.getTopicById(2L);
 
     assertThat(topicDTO).isNotNull();

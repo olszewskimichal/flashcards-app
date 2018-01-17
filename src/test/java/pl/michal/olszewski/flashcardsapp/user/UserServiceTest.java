@@ -1,6 +1,7 @@
 package pl.michal.olszewski.flashcardsapp.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
@@ -10,10 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import pl.michal.olszewski.flashcardsapp.base.ReadObjectMapper;
+import pl.michal.olszewski.flashcardsapp.base.WriteObjectMapper;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.base.ObjectMapper;
-import pl.michal.olszewski.flashcardsapp.user.readmodel.User;
-import pl.michal.olszewski.flashcardsapp.user.writemodel.UserDTO;
+import pl.michal.olszewski.flashcardsapp.user.read.User;
+import pl.michal.olszewski.flashcardsapp.user.write.UserDTO;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -24,17 +26,20 @@ public class UserServiceTest {
   private UserRepository userRepository;
 
   @Mock
-  private ObjectMapper<User, UserDTO> objectMapper;
+  private ReadObjectMapper<User, UserDTO> readObjectMapper;
+
+  @Mock
+  private WriteObjectMapper<User, UserDTO> writeObjectMapper;
 
   @BeforeEach
   void setUp() {
-    userService = new UserService(userRepository, objectMapper);
+    userService = new UserService(userRepository, readObjectMapper, writeObjectMapper);
   }
 
   @Test
   void shouldCreateNewTopic() {
     UserDTO userDTO = UserDTO.builder().lastName("last").build();
-    given(objectMapper.convertFromDTO(userDTO)).willReturn(User.builder().build());
+    given(writeObjectMapper.convertFromDTO(userDTO)).willReturn(User.builder().build());
     User user = userService.createUser(userDTO);
 
     assertThat(user).isNotNull();
@@ -46,11 +51,26 @@ public class UserServiceTest {
     UserDTO userDTO = UserDTO.builder().id(1L).firstName("new Name").build();
     User user = User.builder().id(1L).firstName("name").build();
     given(userRepository.findOne(1L)).willReturn(user);
-    given(objectMapper.updateFrom(userDTO, user)).willReturn(User.builder().build());
 
     User updateUser = userService.updateUser(userDTO);
     assertThat(updateUser).isNotNull();
     verify(userRepository, times(1)).findOne(1L);
+  }
+
+  @Test
+  void shouldUpdateUserFromUserDTO() {
+    //given
+    User user = User.builder().firstName("first2").lastName("lastName2").id(1L).build();
+    UserDTO userDTO = UserDTO.builder().firstName("newName").lastName("newLastName").id(1L).build();
+    given(userRepository.findOne(1L)).willReturn(user);
+    //when
+    User updatedUser = userService.updateUser(userDTO);
+    //then
+    assertAll(
+        () -> assertThat(updatedUser.getFirstName()).isEqualTo("newName"),
+        () -> assertThat(updatedUser.getId()).isEqualTo(1L),
+        () -> assertThat(updatedUser.getLastName()).isEqualTo("newLastName")
+    );
   }
 
   @Test
@@ -66,7 +86,7 @@ public class UserServiceTest {
   void shouldReturnUserDTOById() {
     User user = User.builder().id(2L).build();
     given(userRepository.findOne(2L)).willReturn(user);
-    given(objectMapper.convertToDTO(user)).willReturn(UserDTO.builder().id(2L).build());
+    given(readObjectMapper.convertToDTO(user)).willReturn(UserDTO.builder().id(2L).build());
     UserDTO userDTO = userService.getUserById(2L);
 
     assertThat(userDTO).isNotNull();

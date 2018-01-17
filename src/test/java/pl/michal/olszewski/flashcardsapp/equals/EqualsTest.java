@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.cards.read.Card;
-import pl.michal.olszewski.flashcardsapp.exam.readmodel.Exam;
-import pl.michal.olszewski.flashcardsapp.examcards.readmodel.ExamCard;
-import pl.michal.olszewski.flashcardsapp.topic.readmodel.Topic;
-import pl.michal.olszewski.flashcardsapp.user.readmodel.User;
+import pl.michal.olszewski.flashcardsapp.exam.read.Exam;
+import pl.michal.olszewski.flashcardsapp.examcards.read.ExamCard;
+import pl.michal.olszewski.flashcardsapp.topic.read.Topic;
+import pl.michal.olszewski.flashcardsapp.user.read.User;
 
 
 class EqualsTest {
