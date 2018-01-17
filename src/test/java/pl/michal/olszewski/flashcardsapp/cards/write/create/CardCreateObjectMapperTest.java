@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.Test;
-import pl.michal.olszewski.flashcardsapp.cards.read.Card;
-import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
+import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
+import pl.michal.olszewski.flashcardsapp.cards.write.create.dto.CardCreateDTO;
 
 
 class CardCreateObjectMapperTest {
@@ -15,14 +15,13 @@ class CardCreateObjectMapperTest {
   @Test
   void shouldConvertFromCardDTO() {
     //given
-    CardDTO cardDTO = CardDTO.builder().question("question").answer("answer").id(1L).build();
+    CardCreateDTO cardDTO = CardCreateDTO.builder().question("question").answer("answer").build();
     //when
     Card card = mapper.convertFromDTO(cardDTO);
     //then
     assertAll(
         () -> assertThat(card.getQuestion()).isEqualTo("question"),
-        () -> assertThat(card.getAnswer()).isEqualTo("answer"),
-        () -> assertThat(card.getId()).isEqualTo(1L)
+        () -> assertThat(card.getAnswer()).isEqualTo("answer")
     );
   }
 }

@@ -2,15 +2,15 @@ package pl.michal.olszewski.flashcardsapp.attempt.write;
 
 import java.util.Objects;
 import org.springframework.stereotype.Component;
-import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
-import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptStatusEnum;
+import pl.michal.olszewski.flashcardsapp.attempt.read.entity.Attempt;
+import pl.michal.olszewski.flashcardsapp.attempt.read.entity.AttemptStatusEnum;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.create.CreateAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.base.WriteObjectMapper;
-import pl.michal.olszewski.flashcardsapp.exam.write.ExamRepository;
+import pl.michal.olszewski.flashcardsapp.exam.ExamRepository;
 import pl.michal.olszewski.flashcardsapp.time.DateTimeService;
 import pl.michal.olszewski.flashcardsapp.user.UserRepository;
 
-@Component("AttemptObjectMapper")
+@Component("AttemptWriteObjectMapper")
 public class AttemptWriteObjectMapper implements WriteObjectMapper<Attempt, CreateAttemptDTO> {
 
   private final UserRepository userRepository;

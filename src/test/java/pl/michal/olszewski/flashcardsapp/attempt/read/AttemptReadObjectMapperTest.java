@@ -7,9 +7,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pl.michal.olszewski.flashcardsapp.attempt.read.dto.AttemptDTO;
-import pl.michal.olszewski.flashcardsapp.exam.read.Exam;
+import pl.michal.olszewski.flashcardsapp.attempt.read.entity.Attempt;
+import pl.michal.olszewski.flashcardsapp.attempt.read.entity.AttemptStatusEnum;
+import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.user.read.User;
+import pl.michal.olszewski.flashcardsapp.user.read.entity.User;
 
 
 @ExtendWith(MockitoExtension.class)

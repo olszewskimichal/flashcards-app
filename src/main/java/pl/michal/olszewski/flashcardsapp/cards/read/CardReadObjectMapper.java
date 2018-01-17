@@ -3,8 +3,9 @@ package pl.michal.olszewski.flashcardsapp.cards.read;
 import org.springframework.stereotype.Component;
 import pl.michal.olszewski.flashcardsapp.base.ReadObjectMapper;
 import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
+import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
 
-@Component("CardObjectMapper")
+@Component("CardReadObjectMapper")
 public class CardReadObjectMapper implements ReadObjectMapper<Card, CardDTO> {
 
   @Override

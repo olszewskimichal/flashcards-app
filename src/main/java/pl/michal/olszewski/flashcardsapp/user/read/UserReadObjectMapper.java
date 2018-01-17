@@ -2,9 +2,10 @@ package pl.michal.olszewski.flashcardsapp.user.read;
 
 import org.springframework.stereotype.Component;
 import pl.michal.olszewski.flashcardsapp.base.ReadObjectMapper;
-import pl.michal.olszewski.flashcardsapp.user.write.UserDTO;
+import pl.michal.olszewski.flashcardsapp.user.read.dto.UserDTO;
+import pl.michal.olszewski.flashcardsapp.user.read.entity.User;
 
-@Component("UserObjectMapper")
+@Component("UserReadObjectMapper")
 public class UserReadObjectMapper implements ReadObjectMapper<User, UserDTO> {
 
   @Override

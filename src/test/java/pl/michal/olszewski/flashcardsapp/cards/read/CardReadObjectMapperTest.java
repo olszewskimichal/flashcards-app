@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.Test;
 import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
+import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
 
 
 class CardReadObjectMapperTest {

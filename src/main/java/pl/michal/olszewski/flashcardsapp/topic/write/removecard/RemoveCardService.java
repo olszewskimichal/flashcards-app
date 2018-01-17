@@ -1,24 +1,25 @@
 package pl.michal.olszewski.flashcardsapp.topic.write.removecard;
 
 import java.util.List;
-import pl.michal.olszewski.flashcardsapp.cards.CardService;
-import pl.michal.olszewski.flashcardsapp.cards.read.Card;
-import pl.michal.olszewski.flashcardsapp.topic.TopicService;
-import pl.michal.olszewski.flashcardsapp.topic.read.Topic;
+import pl.michal.olszewski.flashcardsapp.cards.read.CardReadService;
+import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
+import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
+import pl.michal.olszewski.flashcardsapp.topic.write.TopicWriteService;
+import pl.michal.olszewski.flashcardsapp.topic.write.removecard.dto.RemoveCardFromTopicDTO;
 
 public class RemoveCardService {
 
-  private final CardService cardService;
-  private final TopicService topicService;
+  private final CardReadService cardReadService;
+  private final TopicWriteService topicWriteService;
 
-  public RemoveCardService(CardService cardService, TopicService topicService) {
-    this.topicService = topicService;
-    this.cardService = cardService;
+  public RemoveCardService(CardReadService cardReadService, TopicWriteService topicWriteService) {
+    this.topicWriteService = topicWriteService;
+    this.cardReadService = cardReadService;
   }
 
   public Topic removeCardsFromTopic(RemoveCardFromTopicDTO dto) {
-    Topic topic = topicService.findTopicById(dto.getTopicId());
-    List<Card> cardsByIds = cardService.findCardsByIds(dto.getCardsIds());
+    Topic topic = topicWriteService.findTopicById(dto.getTopicId());
+    List<Card> cardsByIds = cardReadService.findCardsByIds(dto.getCardsIds());
     cardsByIds.forEach(topic::removeCard);
     return topic;
   }

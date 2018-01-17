@@ -6,8 +6,10 @@ import org.springframework.stereotype.Component;
 import pl.michal.olszewski.flashcardsapp.base.ReadObjectMapper;
 import pl.michal.olszewski.flashcardsapp.cards.read.CardReadObjectMapper;
 import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
+import pl.michal.olszewski.flashcardsapp.topic.read.dto.TopicDTO;
+import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
 
-@Component("TopicObjectMapper")
+@Component("TopicReadObjectMapper")
 public class TopicReadObjectMapper implements ReadObjectMapper<Topic, TopicDTO> {
 
   private final CardReadObjectMapper cardObjectMapper = new CardReadObjectMapper();

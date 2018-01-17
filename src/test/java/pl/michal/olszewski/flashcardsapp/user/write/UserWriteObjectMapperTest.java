@@ -4,7 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.Test;
-import pl.michal.olszewski.flashcardsapp.user.read.User;
+import pl.michal.olszewski.flashcardsapp.user.read.entity.User;
+import pl.michal.olszewski.flashcardsapp.user.write.dto.create.CreateUserDTO;
 
 
 class UserWriteObjectMapperTest {
@@ -14,9 +15,9 @@ class UserWriteObjectMapperTest {
   @Test
   void shouldConvertFromUserDTO() {
     //given
-    UserDTO userDTO = UserDTO.builder().firstName("first").lastName("last").build();
+    CreateUserDTO createUserDTO = CreateUserDTO.builder().firstName("first").lastName("last").build();
     //when
-    User user = mapper.convertFromDTO(userDTO);
+    User user = mapper.convertFromDTO(createUserDTO);
     //then
     assertAll(
         () -> assertThat(user.getFirstName()).isEqualTo("first"),

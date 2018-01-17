@@ -2,13 +2,13 @@ package pl.michal.olszewski.flashcardsapp.equals;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
-import pl.michal.olszewski.flashcardsapp.attempt.read.Attempt;
+import pl.michal.olszewski.flashcardsapp.attempt.read.entity.Attempt;
 import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
-import pl.michal.olszewski.flashcardsapp.cards.read.Card;
-import pl.michal.olszewski.flashcardsapp.exam.read.Exam;
-import pl.michal.olszewski.flashcardsapp.examcards.read.ExamCard;
-import pl.michal.olszewski.flashcardsapp.topic.read.Topic;
-import pl.michal.olszewski.flashcardsapp.user.read.User;
+import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
+import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
+import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCard;
+import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
+import pl.michal.olszewski.flashcardsapp.user.read.entity.User;
 
 
 class EqualsTest {

@@ -2,14 +2,15 @@ package pl.michal.olszewski.flashcardsapp.exam.read;
 
 import org.springframework.stereotype.Component;
 import pl.michal.olszewski.flashcardsapp.base.ReadObjectMapper;
-import pl.michal.olszewski.flashcardsapp.exam.write.CreateExamDTO;
+import pl.michal.olszewski.flashcardsapp.exam.read.dto.ExamDTO;
+import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 
-@Component("ExamObjectMapper")
-public class ExamReadObjectMapper implements ReadObjectMapper<Exam, CreateExamDTO> {
+@Component("ExamReadObjectMapper")
+public class ExamReadObjectMapper implements ReadObjectMapper<Exam, ExamDTO> {
 
   @Override
-  public CreateExamDTO convertToDTO(Exam entity) {
-    return CreateExamDTO.builder().topicId(entity.getTopic().getId()).build();
+  public ExamDTO convertToDTO(Exam entity) {
+    return ExamDTO.builder().id(entity.getId()).topicId(entity.getTopic().getId()).build();
   }
 
 }

@@ -2,7 +2,7 @@ package pl.michal.olszewski.flashcardsapp.attempt.write.dto.update;
 
 import lombok.Builder;
 import lombok.Getter;
-import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptStatusEnum;
+import pl.michal.olszewski.flashcardsapp.attempt.read.entity.AttemptStatusEnum;
 import pl.michal.olszewski.flashcardsapp.base.DataTransferObject;
 
 @Getter

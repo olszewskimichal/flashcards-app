@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.Test;
-import pl.michal.olszewski.flashcardsapp.topic.read.Topic;
-import pl.michal.olszewski.flashcardsapp.topic.read.TopicDTO;
+import pl.michal.olszewski.flashcardsapp.topic.read.dto.TopicDTO;
+import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
 
 
 class TopicWriteObjectMapperTest {
