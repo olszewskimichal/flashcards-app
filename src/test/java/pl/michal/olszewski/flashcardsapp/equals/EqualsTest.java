@@ -7,6 +7,8 @@ import pl.michal.olszewski.flashcardsapp.base.BaseEntity;
 import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
 import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCard;
+import pl.michal.olszewski.flashcardsapp.factory.attempt.AttemptFactory;
+import pl.michal.olszewski.flashcardsapp.factory.card.CardFactory;
 import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
 import pl.michal.olszewski.flashcardsapp.user.read.entity.User;
 
@@ -33,8 +35,8 @@ class EqualsTest {
 
   @Test
   void testEqualsContractTest() {
-    Attempt attemptOne = Attempt.builder().id(1L).build();
-    Attempt attemptTwo = Attempt.builder().id(2L).build();
+    Attempt attemptOne = AttemptFactory.buildAttemptWithUserAndExam(1L, null, null);
+    Attempt attemptTwo = AttemptFactory.buildAttemptWithUserAndExam(2L, null, null);
     Topic topicOne = Topic.builder().name("name1").id(1L).build();
     Topic topicTwo = Topic.builder().name("name2").id(2L).build();
 
@@ -60,17 +62,17 @@ class EqualsTest {
 
   @Test
   void topicEqualsContractTest() {
-    Card cardOne = Card.builder().id(1L).build();
-    Card cardTwo = Card.builder().id(2L).build();
+    Card cardOne = CardFactory.build(1L, null, null);
+    Card cardTwo = CardFactory.build(2L, null, null);
     EqualsVerifier.forClass(Topic.class).withPrefabValues(Card.class, cardOne, cardTwo).withRedefinedSuperclass().verify();
   }
 
   @Test
   void testCardEqualsContractTest() {
-    Card cardOne = Card.builder().id(1L).build();
-    Card cardTwo = Card.builder().id(2L).build();
-    Attempt attemptOne = Attempt.builder().id(1L).build();
-    Attempt attemptTwo = Attempt.builder().id(2L).build();
+    Card cardOne = CardFactory.build(1L, null, null);
+    Card cardTwo = CardFactory.build(2L, null, null);
+    Attempt attemptOne = AttemptFactory.buildAttemptWithUserAndExam(1L, null, null);
+    Attempt attemptTwo = AttemptFactory.buildAttemptWithUserAndExam(2L, null, null);
 
     EqualsVerifier.forClass(ExamCard.class)
         .withPrefabValues(Attempt.class, attemptOne, attemptTwo)

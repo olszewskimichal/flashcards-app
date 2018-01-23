@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.Test;
 import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
-import pl.michal.olszewski.flashcardsapp.cards.write.create.dto.CardCreateDTO;
+import pl.michal.olszewski.flashcardsapp.cards.write.create.dto.CreateCardDTO;
+import pl.michal.olszewski.flashcardsapp.factory.card.CreateCardDTOFactory;
 
 
 class CardCreateObjectMapperTest {
@@ -15,7 +16,7 @@ class CardCreateObjectMapperTest {
   @Test
   void shouldConvertFromCardDTO() {
     //given
-    CardCreateDTO cardDTO = CardCreateDTO.builder().question("question").answer("answer").build();
+    CreateCardDTO cardDTO = CreateCardDTOFactory.build("question", "answer");
     //when
     Card card = mapper.convertFromDTO(cardDTO);
     //then

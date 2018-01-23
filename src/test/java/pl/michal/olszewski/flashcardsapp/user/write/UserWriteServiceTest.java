@@ -13,6 +13,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.base.WriteObjectMapper;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.user.CreateUserDTOFactory;
+import pl.michal.olszewski.flashcardsapp.factory.user.UpdateUserDTOFactory;
+import pl.michal.olszewski.flashcardsapp.factory.user.UserFactory;
 import pl.michal.olszewski.flashcardsapp.user.UserNotFoundException;
 import pl.michal.olszewski.flashcardsapp.user.UserRepository;
 import pl.michal.olszewski.flashcardsapp.user.read.entity.User;
@@ -37,7 +40,7 @@ public class UserWriteServiceTest {
 
   @Test
   void shouldCreateNewTopic() {
-    CreateUserDTO createUserDTO = CreateUserDTO.builder().lastName("last").build();
+    CreateUserDTO createUserDTO = CreateUserDTOFactory.build("first", "last");
     given(writeObjectMapper.convertFromDTO(createUserDTO)).willReturn(User.builder().build());
     User user = userWriteService.createUser(createUserDTO);
 
@@ -47,8 +50,8 @@ public class UserWriteServiceTest {
 
   @Test
   void shouldUpdateUser() {
-    UpdateUserDTO updateUserDTO = UpdateUserDTO.builder().id(1L).firstName("new Name").build();
-    User user = User.builder().id(1L).firstName("name").build();
+    UpdateUserDTO updateUserDTO = UpdateUserDTOFactory.build(1L, "new Name", null);
+    User user = UserFactory.build(1L, "name", null);
     given(userRepository.findOne(1L)).willReturn(user);
 
     User updateUser = userWriteService.updateUser(updateUserDTO);
@@ -59,8 +62,8 @@ public class UserWriteServiceTest {
   @Test
   void shouldUpdateUserFromUserDTO() {
     //given
-    User user = User.builder().firstName("first2").lastName("lastName2").id(1L).build();
-    UpdateUserDTO updateUserDTO = UpdateUserDTO.builder().firstName("newName").lastName("newLastName").id(1L).build();
+    User user = UserFactory.build(1L, "first2", "lastName2");
+    UpdateUserDTO updateUserDTO = UpdateUserDTOFactory.build(1L, "newName", "newLastName");
     given(userRepository.findOne(1L)).willReturn(user);
     //when
     User updatedUser = userWriteService.updateUser(updateUserDTO);
@@ -74,7 +77,7 @@ public class UserWriteServiceTest {
 
   @Test
   void shouldThrowExceptionWhenUpdateNotExistingUser() {
-    UpdateUserDTO updateUserDTO = UpdateUserDTO.builder().firstName("").id(1L).build();
+    UpdateUserDTO updateUserDTO = UpdateUserDTOFactory.build(1L);
     given(userRepository.findOne(1L)).willReturn(null);
 
     UserNotFoundException userNotFoundException = assertThrows(UserNotFoundException.class, () -> userWriteService.updateUser(updateUserDTO));

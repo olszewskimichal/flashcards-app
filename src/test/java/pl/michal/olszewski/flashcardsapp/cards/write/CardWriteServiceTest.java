@@ -15,9 +15,12 @@ import pl.michal.olszewski.flashcardsapp.base.WriteObjectMapper;
 import pl.michal.olszewski.flashcardsapp.cards.CardNotFoundException;
 import pl.michal.olszewski.flashcardsapp.cards.CardRepository;
 import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
-import pl.michal.olszewski.flashcardsapp.cards.write.create.dto.CardCreateDTO;
-import pl.michal.olszewski.flashcardsapp.cards.write.update.CardUpdateDTO;
+import pl.michal.olszewski.flashcardsapp.cards.write.create.dto.CreateCardDTO;
+import pl.michal.olszewski.flashcardsapp.cards.write.update.UpdateCardDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.card.CardFactory;
+import pl.michal.olszewski.flashcardsapp.factory.card.CreateCardDTOFactory;
+import pl.michal.olszewski.flashcardsapp.factory.card.UpdateCardDTOFactory;
 
 @ExtendWith(MockitoExtension.class)
 class CardWriteServiceTest {
@@ -28,7 +31,7 @@ class CardWriteServiceTest {
   private CardRepository cardRepository;
 
   @Mock
-  private WriteObjectMapper<Card, CardCreateDTO> writeObjectMapper;
+  private WriteObjectMapper<Card, CreateCardDTO> writeObjectMapper;
 
   @BeforeEach
   void setUp() {
@@ -37,7 +40,7 @@ class CardWriteServiceTest {
 
   @Test
   void shouldCreateNewCard() {
-    CardCreateDTO cardDTO = CardCreateDTO.builder().answer("answer3").question("question3").build();
+    CreateCardDTO cardDTO = CreateCardDTOFactory.build("question3", "answer3");
     given(writeObjectMapper.convertFromDTO(cardDTO)).willReturn(Card.builder().answer("answer3").question("question3").build());
     Card card = cardWriteService.createCard(cardDTO);
 
@@ -46,21 +49,10 @@ class CardWriteServiceTest {
   }
 
   @Test
-  void shouldUpdateCard() {
-    CardUpdateDTO cardDTO = CardUpdateDTO.builder().answer("answer4").question("question4").id(1L).build();
-    Card card = Card.builder().id(1L).question("old").answer("oldAnswer").build();
-    given(cardRepository.findOne(1L)).willReturn(card);
-
-    Card updateCard = cardWriteService.updateCard(cardDTO);
-    assertThat(updateCard).isNotNull();
-    verify(cardRepository, times(1)).findOne(1L);
-  }
-
-  @Test
   void shouldUpdateCardFromCardDTO() {
     //given
-    Card card = Card.builder().answer("answer2").question("question12").id(1L).build();
-    CardUpdateDTO cardDTO = CardUpdateDTO.builder().id(1L).question("newQuestion").answer("newAnswer").build();
+    Card card = CardFactory.build(1L, "question12", "answer2");
+    UpdateCardDTO cardDTO = UpdateCardDTOFactory.build(1L, "newQuestion", "newAnswer");
     given(cardRepository.findOne(1L)).willReturn(card);
     //when
     Card updatedCard = cardWriteService.updateCard(cardDTO);
@@ -74,7 +66,8 @@ class CardWriteServiceTest {
 
   @Test
   void shouldThrowExceptionWhenUpdateNotExistingCard() {
-    CardUpdateDTO cardDTO = CardUpdateDTO.builder().answer("answer5").question("question5").id(1L).build();
+    UpdateCardDTO cardDTO = UpdateCardDTOFactory.build(1L, "question5", "answer5");
+
     given(cardRepository.findOne(1L)).willReturn(null);
 
     CardNotFoundException cardNotFoundException = assertThrows(CardNotFoundException.class, () -> cardWriteService.updateCard(cardDTO));

@@ -14,6 +14,7 @@ import pl.michal.olszewski.flashcardsapp.attempt.write.dto.create.CreateAttemptD
 import pl.michal.olszewski.flashcardsapp.exam.ExamRepository;
 import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.attempt.CreateAttemptDTOFactory;
 import pl.michal.olszewski.flashcardsapp.time.DateTimeService;
 import pl.michal.olszewski.flashcardsapp.user.UserRepository;
 import pl.michal.olszewski.flashcardsapp.user.read.entity.User;
@@ -41,11 +42,7 @@ class AttemptWriteObjectMapperTest {
   @Test
   void shouldConvertFromDTO() {
     //given
-    CreateAttemptDTO createAttemptDTO = CreateAttemptDTO.builder()
-        .attemptCount(1L)
-        .examId(2L)
-        .userId(3L)
-        .build();
+    CreateAttemptDTO createAttemptDTO = CreateAttemptDTOFactory.buildWithUserAndExam(3L, 2L);
     given(userRepository.findOne(3L)).willReturn(User.builder().build());
     given(examRepository.findOne(2L)).willReturn(Exam.builder().build());
     //when
@@ -61,10 +58,7 @@ class AttemptWriteObjectMapperTest {
   @Test
   void shouldThrowExceptionWhenConvertFromDTOWithoutUserId() {
     //given
-    CreateAttemptDTO createAttemptDTO = CreateAttemptDTO.builder()
-        .attemptCount(1L)
-        .examId(2L)
-        .build();
+    CreateAttemptDTO createAttemptDTO = CreateAttemptDTOFactory.buildWithUserAndExam(null, 2L);
     //when
     //then
     NullPointerException exception = assertThrows(NullPointerException.class, () -> mapper.convertFromDTO(createAttemptDTO));
@@ -74,10 +68,7 @@ class AttemptWriteObjectMapperTest {
   @Test
   void shouldThrowExceptionWhenConvertFromDTOWithoutTestId() {
     //given
-    CreateAttemptDTO createAttemptDTO = CreateAttemptDTO.builder()
-        .attemptCount(1L)
-        .userId(2L)
-        .build();
+    CreateAttemptDTO createAttemptDTO = CreateAttemptDTOFactory.buildWithUserAndExam(2L, null);
     //when
     //then
     NullPointerException exception = assertThrows(NullPointerException.class, () -> mapper.convertFromDTO(createAttemptDTO));

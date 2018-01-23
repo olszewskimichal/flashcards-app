@@ -19,6 +19,7 @@ import pl.michal.olszewski.flashcardsapp.cards.CardRepository;
 import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
 import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.card.CardFactory;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -39,7 +40,7 @@ class CardReadServiceTest {
 
   @Test
   void shouldReturnCardDTOById() {
-    Card card = Card.builder().question("question6").answer("answer6").build();
+    Card card = CardFactory.build(2L, "question6", "answer6");
     given(cardRepository.findOne(2L)).willReturn(card);
     given(readObjectMapper.convertToDTO(card)).willReturn(CardDTO.builder().id(2L).question("question6").answer("answer6").build());
     CardDTO cardDTO = cardReadService.getCardById(2L);
@@ -58,7 +59,7 @@ class CardReadServiceTest {
 
   @Test
   void shouldCardsListWhenFindCardsByIds() {
-    given(cardRepository.findAll(Arrays.asList(1L, 2L))).willReturn(Arrays.asList(Card.builder().id(1L).build(), Card.builder().id(2L).build()));
+    given(cardRepository.findAll(Arrays.asList(1L, 2L))).willReturn(Arrays.asList(CardFactory.build(1L, null, null), CardFactory.build(2L, null, null)));
     List<Card> cardsByIds = cardReadService.findCardsByIds(Arrays.asList(1L, 2L));
     assertThat(cardsByIds).hasSize(2);
   }

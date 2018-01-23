@@ -13,6 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.base.WriteObjectMapper;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.topic.TopicDTOFactory;
+import pl.michal.olszewski.flashcardsapp.factory.topic.TopicFactory;
 import pl.michal.olszewski.flashcardsapp.topic.TopicNotFoundException;
 import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 import pl.michal.olszewski.flashcardsapp.topic.read.dto.TopicDTO;
@@ -45,20 +47,9 @@ class TopicWriteServiceTest {
   }
 
   @Test
-  void shouldUpdateTopic() {
-    TopicDTO topicDTO = TopicDTO.builder().id(1L).name("new Name").build();
-    Topic topic = Topic.builder().id(1L).name("name").build();
-    given(topicRepository.findOne(1L)).willReturn(topic);
-
-    Topic updateTopic = topicWriteService.updateTopic(topicDTO);
-    assertThat(updateTopic).isNotNull();
-    verify(topicRepository, times(1)).findOne(1L);
-  }
-
-  @Test
   void shouldUpdateTopicFromTopicDTO() {
-    TopicDTO topicDTO = TopicDTO.builder().id(1L).name("newName").build();
-    Topic topic = Topic.builder().id(1L).name("name").build();
+    TopicDTO topicDTO = TopicDTOFactory.build(1L, "newName");
+    Topic topic = TopicFactory.build(1L, "name");
     given(topicRepository.findOne(1L)).willReturn(topic);
     topicWriteService.updateTopic(topicDTO);
     //then
@@ -70,7 +61,7 @@ class TopicWriteServiceTest {
 
   @Test
   void shouldThrowExceptionWhenUpdateNotExistingTopic() {
-    TopicDTO topicDTO = TopicDTO.builder().name("").id(1L).build();
+    TopicDTO topicDTO = TopicDTOFactory.build(1L, "");
     given(topicRepository.findOne(1L)).willReturn(null);
 
     TopicNotFoundException topicNotFoundException = assertThrows(TopicNotFoundException.class, () -> topicWriteService.updateTopic(topicDTO));

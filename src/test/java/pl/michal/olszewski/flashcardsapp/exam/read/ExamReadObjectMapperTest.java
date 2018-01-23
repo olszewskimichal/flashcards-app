@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import pl.michal.olszewski.flashcardsapp.exam.read.dto.ExamDTO;
 import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
-import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
+import pl.michal.olszewski.flashcardsapp.factory.exam.ExamFactory;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -23,12 +23,11 @@ class ExamReadObjectMapperTest {
 
   @Test
   void shouldConvertTestToTestDTO() {
-    Exam exam = Exam.builder().topic(Topic.builder().id(2L).build()).build();
+    Exam exam = ExamFactory.build(1L, 2L);
 
     ExamDTO examDTO = mapper.convertToDTO(exam);
     assertThat(examDTO).isNotNull();
     assertThat(examDTO.getTopicId()).isEqualTo(2L);
-    //assertThat(createExamDTO.getAttempts()).hasSize(1);
   }
 
 }

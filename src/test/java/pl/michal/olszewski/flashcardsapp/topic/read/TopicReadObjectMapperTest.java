@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.Test;
 import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
+import pl.michal.olszewski.flashcardsapp.factory.card.CardFactory;
+import pl.michal.olszewski.flashcardsapp.factory.topic.TopicFactory;
 import pl.michal.olszewski.flashcardsapp.topic.read.dto.TopicDTO;
 import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
 
@@ -16,7 +18,7 @@ class TopicReadObjectMapperTest {
   @Test
   void shouldConvertTopicToTopicDTO() {
     //given
-    Topic topic = Topic.builder().name("nazwa").id(2L).build();
+    Topic topic = TopicFactory.build(2L, "nazwa");
     //when
     TopicDTO topicDTO = mapper.convertToDTO(topic);
     //then
@@ -29,9 +31,9 @@ class TopicReadObjectMapperTest {
   @Test
   void shouldConvertTopicWithCardsToTopicDTO() {
     //given
-    Topic topic = Topic.builder().name("nazwa").id(2L).build();
-    Card cardOne = Card.builder().id(1L).build();
-    Card cardTwo = Card.builder().id(2L).build();
+    Topic topic = TopicFactory.build(2L, "nazwa");
+    Card cardOne = CardFactory.build(1L);
+    Card cardTwo = CardFactory.build(2L);
     topic.addCard(cardOne);
     topic.addCard(cardTwo);
     //when

@@ -12,13 +12,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.base.ReadObjectMapper;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.user.UserDTOFactory;
+import pl.michal.olszewski.flashcardsapp.factory.user.UserFactory;
 import pl.michal.olszewski.flashcardsapp.user.UserNotFoundException;
 import pl.michal.olszewski.flashcardsapp.user.UserRepository;
 import pl.michal.olszewski.flashcardsapp.user.read.dto.UserDTO;
 import pl.michal.olszewski.flashcardsapp.user.read.entity.User;
 
 @ExtendWith(MockitoExtension.class)
-public class UserReadServiceTest {
+class UserReadServiceTest {
 
   private UserReadService userReadService;
 
@@ -35,9 +37,9 @@ public class UserReadServiceTest {
 
   @Test
   void shouldReturnUserDTOById() {
-    User user = User.builder().id(2L).build();
+    User user = UserFactory.build(2L);
     given(userRepository.findOne(2L)).willReturn(user);
-    given(readObjectMapper.convertToDTO(user)).willReturn(UserDTO.builder().id(2L).build());
+    given(readObjectMapper.convertToDTO(user)).willReturn(UserDTOFactory.build(2L));
     UserDTO userDTO = userReadService.getUserById(2L);
 
     assertThat(userDTO).isNotNull();

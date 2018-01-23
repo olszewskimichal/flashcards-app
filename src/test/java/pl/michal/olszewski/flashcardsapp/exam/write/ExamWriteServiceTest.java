@@ -13,6 +13,7 @@ import pl.michal.olszewski.flashcardsapp.exam.ExamRepository;
 import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 import pl.michal.olszewski.flashcardsapp.exam.write.dto.create.CreateExamDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.exam.CreateExamDTOFactory;
 
 @ExtendWith(MockitoExtension.class)
 class ExamWriteServiceTest {
@@ -32,7 +33,7 @@ class ExamWriteServiceTest {
 
   @Test
   void shouldCreateNewTest() {
-    CreateExamDTO createExamDTO = CreateExamDTO.builder().topicId(1L).build();
+    CreateExamDTO createExamDTO = CreateExamDTOFactory.build(1L);
     given(writeObjectMapper.convertFromDTO(createExamDTO)).willReturn(Exam.builder().build());
 
     Exam test = service.createNewExam(createExamDTO);
@@ -43,7 +44,7 @@ class ExamWriteServiceTest {
 
   @Test
   void shouldThrowExceptionWhenTopicIdIsNull() {
-    CreateExamDTO createExamDTO = CreateExamDTO.builder().build();
+    CreateExamDTO createExamDTO = CreateExamDTOFactory.build(null);
 
     NullPointerException exception = assertThrows(NullPointerException.class, () -> service.createNewExam(createExamDTO));
     assertThat(exception).hasMessage("Nie mozna stworzyc testu bez tematu");

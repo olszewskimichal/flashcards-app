@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 import pl.michal.olszewski.flashcardsapp.exam.write.dto.create.CreateExamDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.exam.CreateExamDTOFactory;
 import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
 
@@ -29,7 +30,7 @@ class ExamWriteObjectMapperTest {
 
   @Test
   void shouldConvertFromTestDTO() {
-    CreateExamDTO createExamDTO = CreateExamDTO.builder().topicId(1L).build();
+    CreateExamDTO createExamDTO = CreateExamDTOFactory.build(1L);
     given(topicRepository.findOne(1L)).willReturn(Topic.builder().id(1L).build());
 
     Exam exam = mapper.convertFromDTO(createExamDTO);

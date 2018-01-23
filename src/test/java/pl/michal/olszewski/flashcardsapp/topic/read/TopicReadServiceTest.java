@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.base.ReadObjectMapper;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.topic.TopicFactory;
 import pl.michal.olszewski.flashcardsapp.topic.TopicNotFoundException;
 import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 import pl.michal.olszewski.flashcardsapp.topic.read.dto.TopicDTO;
@@ -35,7 +36,7 @@ class TopicReadServiceTest {
 
   @Test
   void shouldReturnTopicDTOById() {
-    Topic topic = Topic.builder().id(2L).build();
+    Topic topic = TopicFactory.build(2L, "");
     given(topicRepository.findOne(2L)).willReturn(topic);
     given(readObjectMapper.convertToDTO(topic)).willReturn(TopicDTO.builder().id(2L).build());
     TopicDTO topicDTO = topicReadService.getTopicById(2L);

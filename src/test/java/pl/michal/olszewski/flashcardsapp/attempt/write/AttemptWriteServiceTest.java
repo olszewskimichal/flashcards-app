@@ -17,6 +17,9 @@ import pl.michal.olszewski.flashcardsapp.attempt.write.dto.update.CloseAttemptDT
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.update.UpdateStatusAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.attempt.CloseAttemptDTOFactory;
+import pl.michal.olszewski.flashcardsapp.factory.attempt.CreateAttemptDTOFactory;
+import pl.michal.olszewski.flashcardsapp.factory.attempt.UpdateStatusAttemptDTOFactory;
 import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,7 +40,8 @@ class AttemptWriteServiceTest {
 
   @Test
   void shouldCreateNewAttempt() {
-    CreateAttemptDTO createAttemptDTO = CreateAttemptDTO.builder().attemptCount(1L).examId(1L).userId(1L).build();
+    CreateAttemptDTO createAttemptDTO = CreateAttemptDTOFactory.buildWithUserAndExam(2L, 1L);
+
     given(objectMapper.convertFromDTO(Matchers.any(CreateAttemptDTO.class)))
         .willReturn(Attempt.builder().exam(Exam.builder().topic(Topic.builder().build()).build()).build());
 
@@ -51,7 +55,7 @@ class AttemptWriteServiceTest {
 
   @Test
   void shouldCloseAttempt() {
-    CloseAttemptDTO closeAttemptDTO = CloseAttemptDTO.builder().attemptId(1L).build();
+    CloseAttemptDTO closeAttemptDTO = CloseAttemptDTOFactory.build(1L);
     given(attemptRepository.findOne(1L)).willReturn(Attempt.builder().build());
 
     Attempt attempt = attemptWriteService.closeAttempt(closeAttemptDTO);
@@ -62,7 +66,7 @@ class AttemptWriteServiceTest {
 
   @Test
   void shouldUpdateAttemptStatus() {
-    UpdateStatusAttemptDTO statusAttemptDTO = UpdateStatusAttemptDTO.builder().attemptStatus(AttemptStatusEnum.DONE).attemptId(1L).build();
+    UpdateStatusAttemptDTO statusAttemptDTO = UpdateStatusAttemptDTOFactory.build(1L, AttemptStatusEnum.DONE);
     given(attemptRepository.findOne(1L)).willReturn(Attempt.builder().build());
     Attempt attempt = attemptWriteService.updateAttemptStatus(statusAttemptDTO);
     assertThat(attempt.getAttemptStatus()).isEqualTo(AttemptStatusEnum.DONE.getValue());

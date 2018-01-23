@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.cards.read.CardReadService;
 import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.card.CardFactory;
+import pl.michal.olszewski.flashcardsapp.factory.topic.TopicFactory;
 import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
 import pl.michal.olszewski.flashcardsapp.topic.write.TopicWriteService;
 import pl.michal.olszewski.flashcardsapp.topic.write.addcard.dto.AddCardToTopicDTO;
@@ -34,9 +36,9 @@ class AddCardWriteServiceTest {
   @Test
   void shouldAddCardsToTopic() {
     //given
-    Card cardOne = Card.builder().id(1L).build();
-    Card cardTwo = Card.builder().id(2L).build();
-    Topic topic = Topic.builder().id(1L).build();
+    Card cardOne = CardFactory.build(1L);
+    Card cardTwo = CardFactory.build(2L);
+    Topic topic = TopicFactory.build(1L, "");
     given(cardReadService.findCardsByIds(Arrays.asList(1L, 2L))).willReturn(Arrays.asList(cardOne, cardTwo));
     given(topicWriteService.findTopicById(1L)).willReturn(topic);
     //when

@@ -16,6 +16,8 @@ import pl.michal.olszewski.flashcardsapp.examcards.read.dto.ExamCardQuestionDTO;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCard;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCardLevelEnum;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.attempt.AttemptFactory;
+import pl.michal.olszewski.flashcardsapp.factory.examcards.ExamCardFactory;
 
 @ExtendWith(MockitoExtension.class)
 class ExamCardQuestionServiceTest {
@@ -36,7 +38,9 @@ class ExamCardQuestionServiceTest {
   @Test
   void shouldGetNextTestCardQuestion() {
     Attempt attempt = Attempt.builder().build();
-    attempt.setExamCards(Collections.singletonList(ExamCard.builder().id(2L).testLevel(ExamCardLevelEnum.GOOD.getValue()).build()));
+    ExamCard examCard = ExamCardFactory.build(2L, null, null, ExamCardLevelEnum.GOOD.getValue());
+
+    attempt.setExamCards(Collections.singletonList(examCard));
     given(attemptRepository.findOne(1L)).willReturn(attempt);
     Optional<ExamCard> nextTestCardQuestion = examCardQuestionService.getNextTestCardQuestion(1L);
 
@@ -45,8 +49,9 @@ class ExamCardQuestionServiceTest {
 
   @Test
   void shouldNotGetNextTestCardQuestionWhenAllTestCardsArePerfect() {
-    Attempt attempt = Attempt.builder().build();
-    attempt.setExamCards(Collections.singletonList(ExamCard.builder().id(2L).testLevel(ExamCardLevelEnum.PERFECT.getValue()).build()));
+    Attempt attempt = AttemptFactory.build(1L);
+    ExamCard examCard = ExamCardFactory.build(2L, null, null, ExamCardLevelEnum.PERFECT.getValue());
+    attempt.setExamCards(Collections.singletonList(examCard));
     given(attemptRepository.findOne(1L)).willReturn(attempt);
     Optional<ExamCard> nextTestCardQuestion = examCardQuestionService.getNextTestCardQuestion(1L);
 
@@ -55,7 +60,7 @@ class ExamCardQuestionServiceTest {
 
   @Test
   void shouldNotGetNextTestCardQuestionWhenAllTestCardsIsEmpty() {
-    Attempt attempt = Attempt.builder().build();
+    Attempt attempt = AttemptFactory.build(1L);
     attempt.setExamCards(Collections.emptyList());
     given(attemptRepository.findOne(1L)).willReturn(attempt);
     Optional<ExamCard> nextTestCardQuestion = examCardQuestionService.getNextTestCardQuestion(1L);

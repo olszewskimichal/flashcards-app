@@ -8,12 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
 import pl.michal.olszewski.flashcardsapp.examcards.ExamCardRepository;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCard;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCardLevelEnum;
 import pl.michal.olszewski.flashcardsapp.examcards.write.answer.dto.ExamCardAnswerDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
+import pl.michal.olszewski.flashcardsapp.factory.card.CardFactory;
+import pl.michal.olszewski.flashcardsapp.factory.examcards.ExamCardAnswerDTOFactory;
+import pl.michal.olszewski.flashcardsapp.factory.examcards.ExamCardFactory;
 
 @ExtendWith(MockitoExtension.class)
 class ExamCardAnswerServiceTest {
@@ -30,8 +32,9 @@ class ExamCardAnswerServiceTest {
 
   @Test
   void shouldProcessAnswerReturnTrueWhenCorrectAnswer() {
-    ExamCardAnswerDTO examCardAnswerDTO = ExamCardAnswerDTO.builder().examCardId(1L).answer("correct").build();
-    ExamCard examCard = ExamCard.builder().card(Card.builder().answer("Correct").build()).testLevel(ExamCardLevelEnum.BAD.getValue()).isCorrect(Boolean.FALSE).build();
+    ExamCardAnswerDTO examCardAnswerDTO = ExamCardAnswerDTOFactory.build(1L, "correct");
+    ExamCard examCard = ExamCardFactory.build(1L, null, CardFactory.build(null, "q", "correct"), ExamCardLevelEnum.BAD.getValue(), Boolean.FALSE);
+
     given(examCardRepository.findOne(1L)).willReturn(examCard);
 
     Boolean isCorrect = examCardAnswerService.processAnswer(examCardAnswerDTO);
@@ -42,8 +45,8 @@ class ExamCardAnswerServiceTest {
 
   @Test
   void shouldProcessAnswerReturnFalseWhenIncorrectAnswer() {
-    ExamCardAnswerDTO examCardAnswerDTO = ExamCardAnswerDTO.builder().examCardId(1L).answer("incorrect").build();
-    given(examCardRepository.findOne(1L)).willReturn(ExamCard.builder().card(Card.builder().answer("Correct").build()).build());
+    ExamCardAnswerDTO examCardAnswerDTO = ExamCardAnswerDTOFactory.build(1L, "incorrect");
+    given(examCardRepository.findOne(1L)).willReturn(ExamCard.builder().card(CardFactory.build(null, "q", "correct")).build());
 
     Boolean isCorrect = examCardAnswerService.processAnswer(examCardAnswerDTO);
     assertThat(isCorrect).isFalse();
@@ -51,7 +54,7 @@ class ExamCardAnswerServiceTest {
 
   @Test
   void shouldThrowExceptionWhenTryProcessAnswerWithoutTestCardId() {
-    ExamCardAnswerDTO examCardAnswerDTO = ExamCardAnswerDTO.builder().answer("incorrect").build();
+    ExamCardAnswerDTO examCardAnswerDTO = ExamCardAnswerDTOFactory.build(null, "incorrect");
 
     NullPointerException exception = assertThrows(NullPointerException.class, () -> examCardAnswerService.processAnswer(examCardAnswerDTO));
     assertThat(exception.getMessage()).isEqualTo("Nie mozna dac odpowiedzi do nieznanej fiszki");
