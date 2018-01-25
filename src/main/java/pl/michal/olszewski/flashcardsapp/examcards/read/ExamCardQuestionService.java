@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import pl.michal.olszewski.flashcardsapp.attempt.AttemptNotFoundException;
 import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptFinder;
 import pl.michal.olszewski.flashcardsapp.attempt.read.entity.Attempt;
 import pl.michal.olszewski.flashcardsapp.examcards.read.dto.ExamCardQuestionDTO;
@@ -23,7 +24,7 @@ public class ExamCardQuestionService {
   }
 
   public Optional<ExamCard> getNextTestCardQuestion(Long attemptId) {
-    Attempt attempt = attemptRepository.findById(attemptId).orElseThrow(IllegalStateException::new);
+    Attempt attempt = attemptRepository.findById(attemptId).orElseThrow(() -> new AttemptNotFoundException(attemptId));
     List<ExamCard> cardList = attempt.getExamCards();
     Collections.shuffle(cardList);
 

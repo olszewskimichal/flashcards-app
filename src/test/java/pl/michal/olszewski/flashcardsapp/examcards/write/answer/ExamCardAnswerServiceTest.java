@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import pl.michal.olszewski.flashcardsapp.examcards.ExamCardNotFoundException;
 import pl.michal.olszewski.flashcardsapp.examcards.read.ExamCardFinder;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCard;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCardLevelEnum;
@@ -51,6 +52,13 @@ class ExamCardAnswerServiceTest {
 
     Boolean isCorrect = examCardAnswerService.processAnswer(examCardAnswerDTO);
     assertThat(isCorrect).isFalse();
+  }
+
+  @Test
+  void shouldThrowExceptionWhenProcessAnswerWithIncorrectExamCard() {
+    ExamCardAnswerDTO examCardAnswerDTO = ExamCardAnswerDTOFactory.build(1L, "incorrect");
+    given(examCardRepository.findById(1L)).willReturn(Optional.empty());
+    assertThrows(ExamCardNotFoundException.class, () -> examCardAnswerService.processAnswer(examCardAnswerDTO));
   }
 
   @Test

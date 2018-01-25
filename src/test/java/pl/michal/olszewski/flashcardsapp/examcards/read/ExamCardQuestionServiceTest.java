@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import pl.michal.olszewski.flashcardsapp.attempt.AttemptNotFoundException;
 import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptFinder;
 import pl.michal.olszewski.flashcardsapp.attempt.read.entity.Attempt;
 import pl.michal.olszewski.flashcardsapp.examcards.read.dto.ExamCardQuestionDTO;
@@ -51,7 +52,7 @@ class ExamCardQuestionServiceTest {
   @Test
   void shouldThrowExceptionWhenTryGetNextTestCardQuestionForNotExistingAttempt() {
     given(attemptRepository.findById(1L)).willReturn(Optional.empty());
-    assertThrows(IllegalStateException.class, () -> examCardQuestionService.getNextTestCardQuestion(1L));
+    assertThrows(AttemptNotFoundException.class, () -> examCardQuestionService.getNextTestCardQuestion(1L));
   }
 
   @Test

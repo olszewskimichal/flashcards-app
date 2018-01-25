@@ -2,6 +2,7 @@ package pl.michal.olszewski.flashcardsapp.examcards.write.answer;
 
 import java.util.Objects;
 import org.springframework.stereotype.Service;
+import pl.michal.olszewski.flashcardsapp.examcards.ExamCardNotFoundException;
 import pl.michal.olszewski.flashcardsapp.examcards.read.ExamCardFinder;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCard;
 import pl.michal.olszewski.flashcardsapp.examcards.write.answer.dto.ExamCardAnswerDTO;
@@ -17,7 +18,7 @@ public class ExamCardAnswerService {
 
   public Boolean processAnswer(ExamCardAnswerDTO examCardAnswerDTO) {
     Objects.requireNonNull(examCardAnswerDTO.getExamCardId(), "Nie mozna dac odpowiedzi do nieznanej fiszki");
-    ExamCard one = finder.findById(examCardAnswerDTO.getExamCardId()).orElseThrow(IllegalStateException::new);
+    ExamCard one = finder.findById(examCardAnswerDTO.getExamCardId()).orElseThrow(() -> new ExamCardNotFoundException(examCardAnswerDTO.getExamCardId()));
     String answer = one.getCard().getAnswer();
     if (examCardAnswerDTO.getAnswer().equalsIgnoreCase(answer)) {
       one.setIsCorrect(true);
