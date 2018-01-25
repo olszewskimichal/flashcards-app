@@ -67,7 +67,7 @@ class CardReadServiceTest {
 
   @Test
   void shouldThrowExceptionWhenGetByNotExistingId() {
-    given(finder.findById(1L)).willReturn(Optional.empty());
+    given(finder.findById(2L)).willReturn(Optional.empty());
     CardNotFoundException cardNotFoundException = assertThrows(CardNotFoundException.class, () -> cardReadService.getCardById(2L));
     assertThat(cardNotFoundException.getMessage()).isEqualTo("Nie znalaziono fiszki o id = 2");
   }

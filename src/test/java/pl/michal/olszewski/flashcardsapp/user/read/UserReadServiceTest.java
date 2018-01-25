@@ -49,7 +49,7 @@ class UserReadServiceTest {
 
   @Test
   void shouldThrowExceptionWhenGetByNotExistingId() {
-    given(userFinder.findById(1L)).willReturn(Optional.empty());
+    given(userFinder.findById(2L)).willReturn(Optional.empty());
     UserNotFoundException userNotFoundException = assertThrows(UserNotFoundException.class, () -> userReadService.getUserById(2L));
     assertThat(userNotFoundException.getMessage()).isEqualTo("Nie znalaziono uzytkownika o id = 2");
   }

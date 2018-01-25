@@ -48,7 +48,7 @@ class TopicReadServiceTest {
 
   @Test
   void shouldThrowExceptionWhenGetByNotExistingId() {
-    given(topicRepository.findById(1L)).willReturn(Optional.empty());
+    given(topicRepository.findById(2L)).willReturn(Optional.empty());
     TopicNotFoundException topicNotFoundException = assertThrows(TopicNotFoundException.class, () -> topicReadService.getTopicById(2L));
     assertThat(topicNotFoundException.getMessage()).isEqualTo("Nie znalaziono tematu o id = 2");
   }
