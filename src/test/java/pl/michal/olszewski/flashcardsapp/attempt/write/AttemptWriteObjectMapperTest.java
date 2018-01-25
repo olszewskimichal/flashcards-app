@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,12 +12,12 @@ import org.mockito.Mock;
 import pl.michal.olszewski.flashcardsapp.attempt.read.entity.Attempt;
 import pl.michal.olszewski.flashcardsapp.attempt.read.entity.AttemptStatusEnum;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.create.CreateAttemptDTO;
-import pl.michal.olszewski.flashcardsapp.exam.ExamRepository;
+import pl.michal.olszewski.flashcardsapp.exam.read.ExamFinder;
 import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.factory.attempt.CreateAttemptDTOFactory;
 import pl.michal.olszewski.flashcardsapp.time.DateTimeService;
-import pl.michal.olszewski.flashcardsapp.user.UserRepository;
+import pl.michal.olszewski.flashcardsapp.user.read.UserFinder;
 import pl.michal.olszewski.flashcardsapp.user.read.entity.User;
 
 
@@ -24,10 +25,10 @@ import pl.michal.olszewski.flashcardsapp.user.read.entity.User;
 class AttemptWriteObjectMapperTest {
 
   @Mock
-  private ExamRepository examRepository;
+  private ExamFinder examFinder;
 
   @Mock
-  private UserRepository userRepository;
+  private UserFinder userFinder;
 
   @Mock
   private DateTimeService timeService;
@@ -36,15 +37,15 @@ class AttemptWriteObjectMapperTest {
 
   @BeforeEach
   void setUp() {
-    mapper = new AttemptWriteObjectMapper(userRepository, examRepository, timeService);
+    mapper = new AttemptWriteObjectMapper(userFinder, examFinder, timeService);
   }
 
   @Test
   void shouldConvertFromDTO() {
     //given
     CreateAttemptDTO createAttemptDTO = CreateAttemptDTOFactory.buildWithUserAndExam(3L, 2L);
-    given(userRepository.findOne(3L)).willReturn(User.builder().build());
-    given(examRepository.findOne(2L)).willReturn(Exam.builder().build());
+    given(userFinder.findById(3L)).willReturn(Optional.of(User.builder().build()));
+    given(examFinder.findById(2L)).willReturn(Optional.of(Exam.builder().build()));
     //when
     Attempt attempt = mapper.convertFromDTO(createAttemptDTO);
     //then

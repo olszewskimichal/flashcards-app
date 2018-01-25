@@ -3,7 +3,6 @@ package pl.michal.olszewski.flashcardsapp.exam.write;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import pl.michal.olszewski.flashcardsapp.exam.ExamRepository;
 import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 import pl.michal.olszewski.flashcardsapp.exam.write.dto.create.CreateExamDTO;
 

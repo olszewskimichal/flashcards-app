@@ -7,6 +7,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +17,6 @@ import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.factory.topic.TopicDTOFactory;
 import pl.michal.olszewski.flashcardsapp.factory.topic.TopicFactory;
 import pl.michal.olszewski.flashcardsapp.topic.TopicNotFoundException;
-import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 import pl.michal.olszewski.flashcardsapp.topic.read.dto.TopicDTO;
 import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
 
@@ -50,7 +50,7 @@ class TopicWriteServiceTest {
   void shouldUpdateTopicFromTopicDTO() {
     TopicDTO topicDTO = TopicDTOFactory.build(1L, "newName");
     Topic topic = TopicFactory.build(1L, "name");
-    given(topicRepository.findOne(1L)).willReturn(topic);
+    given(topicRepository.findById(1L)).willReturn(Optional.of(topic));
     topicWriteService.updateTopic(topicDTO);
     //then
     assertAll(
@@ -62,7 +62,7 @@ class TopicWriteServiceTest {
   @Test
   void shouldThrowExceptionWhenUpdateNotExistingTopic() {
     TopicDTO topicDTO = TopicDTOFactory.build(1L, "");
-    given(topicRepository.findOne(1L)).willReturn(null);
+    given(topicRepository.findById(1L)).willReturn(Optional.empty());
 
     TopicNotFoundException topicNotFoundException = assertThrows(TopicNotFoundException.class, () -> topicWriteService.updateTopic(topicDTO));
     assertThat(topicNotFoundException.getMessage()).isEqualTo("Nie znalaziono tematu o id = 1");

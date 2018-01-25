@@ -11,8 +11,8 @@ public class AttemptFactory {
   public static Attempt buildAttemptWithUserAndExam(Long attemptId, Long userId, Long examId) {
     return Attempt.builder()
         .id(attemptId)
-        .user(User.builder().id(userId).build())
-        .exam(Exam.builder().id(examId).build())
+        .user(userId != null ? User.builder().id(userId).build() : null)
+        .exam(examId != null ? Exam.builder().id(examId).build() : null)
         .startDateTime(Instant.now())
         .attemptStatus(AttemptStatusEnum.DONE)
         .attemptCount(1L)

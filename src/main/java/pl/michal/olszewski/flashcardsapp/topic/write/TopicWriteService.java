@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.base.WriteObjectMapper;
 import pl.michal.olszewski.flashcardsapp.topic.TopicNotFoundException;
-import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 import pl.michal.olszewski.flashcardsapp.topic.read.dto.TopicDTO;
 import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
 
@@ -32,11 +31,7 @@ public class TopicWriteService {
   }
 
   public Topic findTopicById(Long id) {
-    Topic topic = topicRepository.findOne(id);
-    if (topic == null) {
-      throw new TopicNotFoundException(id);
-    }
-    return topic;
+    return topicRepository.findById(id).orElseThrow(() -> new TopicNotFoundException(id));
   }
 
 }

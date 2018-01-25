@@ -7,6 +7,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,7 +54,7 @@ class CardWriteServiceTest {
     //given
     Card card = CardFactory.build(1L, "question12", "answer2");
     UpdateCardDTO cardDTO = UpdateCardDTOFactory.build(1L, "newQuestion", "newAnswer");
-    given(cardRepository.findOne(1L)).willReturn(card);
+    given(cardRepository.findById(1L)).willReturn(Optional.of(card));
     //when
     Card updatedCard = cardWriteService.updateCard(cardDTO);
     //then
@@ -68,7 +69,7 @@ class CardWriteServiceTest {
   void shouldThrowExceptionWhenUpdateNotExistingCard() {
     UpdateCardDTO cardDTO = UpdateCardDTOFactory.build(1L, "question5", "answer5");
 
-    given(cardRepository.findOne(1L)).willReturn(null);
+    given(cardRepository.findById(1L)).willReturn(Optional.empty());
 
     CardNotFoundException cardNotFoundException = assertThrows(CardNotFoundException.class, () -> cardWriteService.updateCard(cardDTO));
     assertThat(cardNotFoundException.getMessage()).isEqualTo("Nie znalaziono fiszki o id = 1");

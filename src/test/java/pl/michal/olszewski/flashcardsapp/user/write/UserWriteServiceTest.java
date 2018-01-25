@@ -7,6 +7,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -52,11 +53,11 @@ public class UserWriteServiceTest {
   void shouldUpdateUser() {
     UpdateUserDTO updateUserDTO = UpdateUserDTOFactory.build(1L, "new Name", null);
     User user = UserFactory.build(1L, "name", null);
-    given(userRepository.findOne(1L)).willReturn(user);
+    given(userRepository.findById(1L)).willReturn(Optional.of(user));
 
     User updateUser = userWriteService.updateUser(updateUserDTO);
     assertThat(updateUser).isNotNull();
-    verify(userRepository, times(1)).findOne(1L);
+    verify(userRepository, times(1)).findById(1L);
   }
 
   @Test
@@ -64,7 +65,7 @@ public class UserWriteServiceTest {
     //given
     User user = UserFactory.build(1L, "first2", "lastName2");
     UpdateUserDTO updateUserDTO = UpdateUserDTOFactory.build(1L, "newName", "newLastName");
-    given(userRepository.findOne(1L)).willReturn(user);
+    given(userRepository.findById(1L)).willReturn(Optional.of(user));
     //when
     User updatedUser = userWriteService.updateUser(updateUserDTO);
     //then
@@ -78,7 +79,7 @@ public class UserWriteServiceTest {
   @Test
   void shouldThrowExceptionWhenUpdateNotExistingUser() {
     UpdateUserDTO updateUserDTO = UpdateUserDTOFactory.build(1L);
-    given(userRepository.findOne(1L)).willReturn(null);
+    given(userRepository.findById(1L)).willReturn(Optional.empty());
 
     UserNotFoundException userNotFoundException = assertThrows(UserNotFoundException.class, () -> userWriteService.updateUser(updateUserDTO));
     assertThat(userNotFoundException.getMessage()).isEqualTo("Nie znalaziono uzytkownika o id = 1");

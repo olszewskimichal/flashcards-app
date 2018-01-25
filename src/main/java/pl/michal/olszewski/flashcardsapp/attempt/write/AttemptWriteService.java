@@ -36,13 +36,13 @@ public class AttemptWriteService {
   }
 
   public Attempt closeAttempt(CloseAttemptDTO closeAttemptDTO) {
-    Attempt attempt = attemptRepository.findOne(closeAttemptDTO.getAttemptId());
+    Attempt attempt = attemptRepository.findById(closeAttemptDTO.getAttemptId()).orElseThrow(IllegalStateException::new);
     attempt.setAttemptStatus(AttemptStatusEnum.DONE.getValue());
     return attempt;
   }
 
   public Attempt updateAttemptStatus(UpdateStatusAttemptDTO updateStatusAttemptDTO) {
-    Attempt attempt = attemptRepository.findOne(updateStatusAttemptDTO.getAttemptId());
+    Attempt attempt = attemptRepository.findById(updateStatusAttemptDTO.getAttemptId()).orElseThrow(IllegalStateException::new);
     attempt.setAttemptStatus(updateStatusAttemptDTO.getAttemptStatus());
     return attempt;
   }

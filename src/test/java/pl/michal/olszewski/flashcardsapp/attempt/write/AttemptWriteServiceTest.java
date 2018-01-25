@@ -1,8 +1,10 @@
 package pl.michal.olszewski.flashcardsapp.attempt.write;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -56,22 +58,38 @@ class AttemptWriteServiceTest {
   @Test
   void shouldCloseAttempt() {
     CloseAttemptDTO closeAttemptDTO = CloseAttemptDTOFactory.build(1L);
-    given(attemptRepository.findOne(1L)).willReturn(Attempt.builder().build());
+    given(attemptRepository.findById(1L)).willReturn(Optional.of(Attempt.builder().build()));
 
     Attempt attempt = attemptWriteService.closeAttempt(closeAttemptDTO);
     assertThat(attempt.getAttemptStatus()).isEqualTo(AttemptStatusEnum.DONE.getValue());
     assertThat(attempt).isNotNull();
-    Mockito.verify(attemptRepository, Mockito.times(1)).findOne(1L);
+    Mockito.verify(attemptRepository, Mockito.times(1)).findById(1L);
+  }
+
+  @Test
+  void shouldThrowExceptionWhenTryCloseNotExistingAttempt() {
+    CloseAttemptDTO closeAttemptDTO = CloseAttemptDTOFactory.build(1L);
+    given(attemptRepository.findById(1L)).willReturn(Optional.empty());
+
+    assertThrows(IllegalStateException.class, () -> attemptWriteService.closeAttempt(closeAttemptDTO));
   }
 
   @Test
   void shouldUpdateAttemptStatus() {
     UpdateStatusAttemptDTO statusAttemptDTO = UpdateStatusAttemptDTOFactory.build(1L, AttemptStatusEnum.DONE);
-    given(attemptRepository.findOne(1L)).willReturn(Attempt.builder().build());
+    given(attemptRepository.findById(1L)).willReturn(Optional.of(Attempt.builder().build()));
     Attempt attempt = attemptWriteService.updateAttemptStatus(statusAttemptDTO);
     assertThat(attempt.getAttemptStatus()).isEqualTo(AttemptStatusEnum.DONE.getValue());
     assertThat(attempt).isNotNull();
-    Mockito.verify(attemptRepository, Mockito.times(1)).findOne(1L);
+    Mockito.verify(attemptRepository, Mockito.times(1)).findById(1L);
+  }
+
+  @Test
+  void shouldThrowExceptionWhenTryUpdateNotExistingAttempt() {
+    UpdateStatusAttemptDTO statusAttemptDTO = UpdateStatusAttemptDTOFactory.build(1L, AttemptStatusEnum.DONE);
+    given(attemptRepository.findById(1L)).willReturn(Optional.empty());
+
+    assertThrows(IllegalStateException.class, () -> attemptWriteService.updateAttemptStatus(statusAttemptDTO));
   }
 
 }

@@ -6,6 +6,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +15,6 @@ import pl.michal.olszewski.flashcardsapp.base.ReadObjectMapper;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;
 import pl.michal.olszewski.flashcardsapp.factory.topic.TopicFactory;
 import pl.michal.olszewski.flashcardsapp.topic.TopicNotFoundException;
-import pl.michal.olszewski.flashcardsapp.topic.TopicRepository;
 import pl.michal.olszewski.flashcardsapp.topic.read.dto.TopicDTO;
 import pl.michal.olszewski.flashcardsapp.topic.read.entity.Topic;
 
@@ -24,7 +24,7 @@ class TopicReadServiceTest {
   private TopicReadService topicReadService;
 
   @Mock
-  private TopicRepository topicRepository;
+  private TopicFinder topicRepository;
 
   @Mock
   private ReadObjectMapper<Topic, TopicDTO> readObjectMapper;
@@ -37,18 +37,18 @@ class TopicReadServiceTest {
   @Test
   void shouldReturnTopicDTOById() {
     Topic topic = TopicFactory.build(2L, "");
-    given(topicRepository.findOne(2L)).willReturn(topic);
+    given(topicRepository.findById(2L)).willReturn(Optional.of(topic));
     given(readObjectMapper.convertToDTO(topic)).willReturn(TopicDTO.builder().id(2L).build());
     TopicDTO topicDTO = topicReadService.getTopicById(2L);
 
     assertThat(topicDTO).isNotNull();
     assertThat(topicDTO.getId()).isEqualTo(2L);
-    verify(topicRepository, times(1)).findOne(2L);
+    verify(topicRepository, times(1)).findById(2L);
   }
 
   @Test
   void shouldThrowExceptionWhenGetByNotExistingId() {
-    given(topicRepository.findOne(1L)).willReturn(null);
+    given(topicRepository.findById(1L)).willReturn(Optional.empty());
     TopicNotFoundException topicNotFoundException = assertThrows(TopicNotFoundException.class, () -> topicReadService.getTopicById(2L));
     assertThat(topicNotFoundException.getMessage()).isEqualTo("Nie znalaziono tematu o id = 2");
   }

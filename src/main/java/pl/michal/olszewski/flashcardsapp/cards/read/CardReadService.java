@@ -5,19 +5,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.michal.olszewski.flashcardsapp.base.ReadObjectMapper;
 import pl.michal.olszewski.flashcardsapp.cards.CardNotFoundException;
-import pl.michal.olszewski.flashcardsapp.cards.CardRepository;
 import pl.michal.olszewski.flashcardsapp.cards.read.dto.CardDTO;
 import pl.michal.olszewski.flashcardsapp.cards.read.entity.Card;
 
 @Service
 public class CardReadService {
 
-  private final CardRepository cardRepository;
+  private final CardFinder finder;
   private final ReadObjectMapper<Card, CardDTO> readObjectMapper;
 
 
-  public CardReadService(CardRepository cardRepository, @Qualifier("CardReadObjectMapper") ReadObjectMapper<Card, CardDTO> readObjectMapper) {
-    this.cardRepository = cardRepository;
+  public CardReadService(CardFinder finder, @Qualifier("CardReadObjectMapper") ReadObjectMapper<Card, CardDTO> readObjectMapper) {
+    this.finder = finder;
     this.readObjectMapper = readObjectMapper;
   }
 
@@ -27,15 +26,11 @@ public class CardReadService {
   }
 
   private Card findCardById(long cardId) {
-    Card card = cardRepository.findOne(cardId);
-    if (card == null) {
-      throw new CardNotFoundException(cardId);
-    }
-    return card;
+    return finder.findById(cardId).orElseThrow(() -> new CardNotFoundException(cardId));
   }
 
   public List<Card> findCardsByIds(List<Long> cardsIds) {
-    return cardRepository.findAll(cardsIds);
+    return finder.findAll(cardsIds);
   }
 
 }

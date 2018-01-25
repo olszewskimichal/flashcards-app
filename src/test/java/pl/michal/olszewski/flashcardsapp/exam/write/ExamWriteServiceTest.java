@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import pl.michal.olszewski.flashcardsapp.exam.ExamRepository;
 import pl.michal.olszewski.flashcardsapp.exam.read.entity.Exam;
 import pl.michal.olszewski.flashcardsapp.exam.write.dto.create.CreateExamDTO;
 import pl.michal.olszewski.flashcardsapp.extensions.MockitoExtension;

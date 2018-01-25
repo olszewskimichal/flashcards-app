@@ -4,11 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import pl.michal.olszewski.flashcardsapp.examcards.ExamCardRepository;
+import pl.michal.olszewski.flashcardsapp.examcards.read.ExamCardFinder;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCard;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCardLevelEnum;
 import pl.michal.olszewski.flashcardsapp.examcards.write.answer.dto.ExamCardAnswerDTO;
@@ -21,7 +22,7 @@ import pl.michal.olszewski.flashcardsapp.factory.examcards.ExamCardFactory;
 class ExamCardAnswerServiceTest {
 
   @Mock
-  private ExamCardRepository examCardRepository;
+  private ExamCardFinder examCardRepository;
 
   private ExamCardAnswerService examCardAnswerService;
 
@@ -35,7 +36,7 @@ class ExamCardAnswerServiceTest {
     ExamCardAnswerDTO examCardAnswerDTO = ExamCardAnswerDTOFactory.build(1L, "correct");
     ExamCard examCard = ExamCardFactory.build(1L, null, CardFactory.build(null, "q", "correct"), ExamCardLevelEnum.BAD.getValue(), Boolean.FALSE);
 
-    given(examCardRepository.findOne(1L)).willReturn(examCard);
+    given(examCardRepository.findById(1L)).willReturn(Optional.of(examCard));
 
     Boolean isCorrect = examCardAnswerService.processAnswer(examCardAnswerDTO);
     assertThat(isCorrect).isTrue();
@@ -46,7 +47,7 @@ class ExamCardAnswerServiceTest {
   @Test
   void shouldProcessAnswerReturnFalseWhenIncorrectAnswer() {
     ExamCardAnswerDTO examCardAnswerDTO = ExamCardAnswerDTOFactory.build(1L, "incorrect");
-    given(examCardRepository.findOne(1L)).willReturn(ExamCard.builder().card(CardFactory.build(null, "q", "correct")).build());
+    given(examCardRepository.findById(1L)).willReturn(Optional.of(ExamCard.builder().card(CardFactory.build(null, "q", "correct")).build()));
 
     Boolean isCorrect = examCardAnswerService.processAnswer(examCardAnswerDTO);
     assertThat(isCorrect).isFalse();

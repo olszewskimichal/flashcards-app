@@ -35,11 +35,7 @@ public class CardWriteService {
   }
 
   private Card findCardById(long cardId) {
-    Card card = cardRepository.findOne(cardId);
-    if (card == null) {
-      throw new CardNotFoundException(cardId);
-    }
-    return card;
+    return cardRepository.findById(cardId).orElseThrow(() -> new CardNotFoundException(cardId));
   }
 
 }

@@ -6,20 +6,20 @@ import pl.michal.olszewski.flashcardsapp.attempt.read.entity.Attempt;
 import pl.michal.olszewski.flashcardsapp.attempt.read.entity.AttemptStatusEnum;
 import pl.michal.olszewski.flashcardsapp.attempt.write.dto.create.CreateAttemptDTO;
 import pl.michal.olszewski.flashcardsapp.base.WriteObjectMapper;
-import pl.michal.olszewski.flashcardsapp.exam.ExamRepository;
+import pl.michal.olszewski.flashcardsapp.exam.read.ExamFinder;
 import pl.michal.olszewski.flashcardsapp.time.DateTimeService;
-import pl.michal.olszewski.flashcardsapp.user.UserRepository;
+import pl.michal.olszewski.flashcardsapp.user.read.UserFinder;
 
 @Component("AttemptWriteObjectMapper")
 public class AttemptWriteObjectMapper implements WriteObjectMapper<Attempt, CreateAttemptDTO> {
 
-  private final UserRepository userRepository;
-  private final ExamRepository examRepository;
+  private final UserFinder userFinder;
+  private final ExamFinder examFinder;
   private final DateTimeService timeService;
 
-  public AttemptWriteObjectMapper(UserRepository userRepository, ExamRepository examRepository, DateTimeService timeService) {
-    this.userRepository = userRepository;
-    this.examRepository = examRepository;
+  public AttemptWriteObjectMapper(UserFinder userFinder, ExamFinder examFinder, DateTimeService timeService) {
+    this.userFinder = userFinder;
+    this.examFinder = examFinder;
     this.timeService = timeService;
   }
 
@@ -31,8 +31,8 @@ public class AttemptWriteObjectMapper implements WriteObjectMapper<Attempt, Crea
         .attemptCount(transferObject.getAttemptCount())
         .attemptStatus(AttemptStatusEnum.NEW)
         .startDateTime(timeService.getCurrentDateTime())
-        .exam(examRepository.findOne(transferObject.getExamId()))
-        .user(userRepository.findOne(transferObject.getUserId()))
+        .exam(examFinder.findById(transferObject.getExamId()).orElse(null))
+        .user(userFinder.findById(transferObject.getUserId()).orElse(null))
         .build();
   }
 

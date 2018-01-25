@@ -2,6 +2,7 @@ package pl.michal.olszewski.flashcardsapp.examcards.read;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
 import java.util.Collections;
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import pl.michal.olszewski.flashcardsapp.attempt.AttemptRepository;
+import pl.michal.olszewski.flashcardsapp.attempt.read.AttemptFinder;
 import pl.michal.olszewski.flashcardsapp.attempt.read.entity.Attempt;
 import pl.michal.olszewski.flashcardsapp.examcards.read.dto.ExamCardQuestionDTO;
 import pl.michal.olszewski.flashcardsapp.examcards.read.entity.ExamCard;
@@ -25,7 +26,7 @@ class ExamCardQuestionServiceTest {
   private ExamCardQuestionService examCardQuestionService;
 
   @Mock
-  private AttemptRepository attemptRepository;
+  private AttemptFinder attemptRepository;
 
   @Mock
   private ExamCardQuestionObjectMapper examCardQuestionObjectMapper;
@@ -41,10 +42,16 @@ class ExamCardQuestionServiceTest {
     ExamCard examCard = ExamCardFactory.build(2L, null, null, ExamCardLevelEnum.GOOD.getValue());
 
     attempt.setExamCards(Collections.singletonList(examCard));
-    given(attemptRepository.findOne(1L)).willReturn(attempt);
+    given(attemptRepository.findById(1L)).willReturn(Optional.of(attempt));
     Optional<ExamCard> nextTestCardQuestion = examCardQuestionService.getNextTestCardQuestion(1L);
 
     assertThat(nextTestCardQuestion).isPresent();
+  }
+
+  @Test
+  void shouldThrowExceptionWhenTryGetNextTestCardQuestionForNotExistingAttempt() {
+    given(attemptRepository.findById(1L)).willReturn(Optional.empty());
+    assertThrows(IllegalStateException.class, () -> examCardQuestionService.getNextTestCardQuestion(1L));
   }
 
   @Test
@@ -52,7 +59,7 @@ class ExamCardQuestionServiceTest {
     Attempt attempt = AttemptFactory.build(1L);
     ExamCard examCard = ExamCardFactory.build(2L, null, null, ExamCardLevelEnum.PERFECT.getValue());
     attempt.setExamCards(Collections.singletonList(examCard));
-    given(attemptRepository.findOne(1L)).willReturn(attempt);
+    given(attemptRepository.findById(1L)).willReturn(Optional.of(attempt));
     Optional<ExamCard> nextTestCardQuestion = examCardQuestionService.getNextTestCardQuestion(1L);
 
     assertThat(nextTestCardQuestion).isNotPresent();
@@ -62,7 +69,7 @@ class ExamCardQuestionServiceTest {
   void shouldNotGetNextTestCardQuestionWhenAllTestCardsIsEmpty() {
     Attempt attempt = AttemptFactory.build(1L);
     attempt.setExamCards(Collections.emptyList());
-    given(attemptRepository.findOne(1L)).willReturn(attempt);
+    given(attemptRepository.findById(1L)).willReturn(Optional.of(attempt));
     Optional<ExamCard> nextTestCardQuestion = examCardQuestionService.getNextTestCardQuestion(1L);
 
     assertThat(nextTestCardQuestion).isNotPresent();

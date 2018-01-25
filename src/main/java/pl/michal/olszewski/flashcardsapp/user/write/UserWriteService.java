@@ -34,10 +34,6 @@ public class UserWriteService {
   }
 
   private User findUserById(long userId) {
-    User user = userRepository.findOne(userId);
-    if (user == null) {
-      throw new UserNotFoundException(userId);
-    }
-    return user;
+    return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
   }
 }
