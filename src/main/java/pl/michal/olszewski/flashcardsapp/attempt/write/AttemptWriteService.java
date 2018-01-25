@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import pl.michal.olszewski.flashcardsapp.attempt.AttemptNotFoundException;
 import pl.michal.olszewski.flashcardsapp.attempt.AttemptRepository;
 import pl.michal.olszewski.flashcardsapp.attempt.read.entity.Attempt;
 import pl.michal.olszewski.flashcardsapp.attempt.read.entity.AttemptStatusEnum;
@@ -36,13 +37,13 @@ public class AttemptWriteService {
   }
 
   public Attempt closeAttempt(CloseAttemptDTO closeAttemptDTO) {
-    Attempt attempt = attemptRepository.findById(closeAttemptDTO.getAttemptId()).orElseThrow(IllegalStateException::new);
+    Attempt attempt = attemptRepository.findById(closeAttemptDTO.getAttemptId()).orElseThrow(() -> new AttemptNotFoundException(closeAttemptDTO.getAttemptId()));
     attempt.setAttemptStatus(AttemptStatusEnum.DONE.getValue());
     return attempt;
   }
 
   public Attempt updateAttemptStatus(UpdateStatusAttemptDTO updateStatusAttemptDTO) {
-    Attempt attempt = attemptRepository.findById(updateStatusAttemptDTO.getAttemptId()).orElseThrow(IllegalStateException::new);
+    Attempt attempt = attemptRepository.findById(updateStatusAttemptDTO.getAttemptId()).orElseThrow(() -> new AttemptNotFoundException(updateStatusAttemptDTO.getAttemptId()));
     attempt.setAttemptStatus(updateStatusAttemptDTO.getAttemptStatus());
     return attempt;
   }

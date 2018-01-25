@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import pl.michal.olszewski.flashcardsapp.attempt.AttemptNotFoundException;
 import pl.michal.olszewski.flashcardsapp.attempt.AttemptRepository;
 import pl.michal.olszewski.flashcardsapp.attempt.read.entity.Attempt;
 import pl.michal.olszewski.flashcardsapp.attempt.read.entity.AttemptStatusEnum;
@@ -71,7 +72,7 @@ class AttemptWriteServiceTest {
     CloseAttemptDTO closeAttemptDTO = CloseAttemptDTOFactory.build(1L);
     given(attemptRepository.findById(1L)).willReturn(Optional.empty());
 
-    assertThrows(IllegalStateException.class, () -> attemptWriteService.closeAttempt(closeAttemptDTO));
+    assertThrows(AttemptNotFoundException.class, () -> attemptWriteService.closeAttempt(closeAttemptDTO));
   }
 
   @Test
@@ -89,7 +90,7 @@ class AttemptWriteServiceTest {
     UpdateStatusAttemptDTO statusAttemptDTO = UpdateStatusAttemptDTOFactory.build(1L, AttemptStatusEnum.DONE);
     given(attemptRepository.findById(1L)).willReturn(Optional.empty());
 
-    assertThrows(IllegalStateException.class, () -> attemptWriteService.updateAttemptStatus(statusAttemptDTO));
+    assertThrows(AttemptNotFoundException.class, () -> attemptWriteService.updateAttemptStatus(statusAttemptDTO));
   }
 
 }
